@@ -1,0 +1,151 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p,
+img, strong, b, i,
+dl, dt, dd, ol, ul, li,
+form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video,
+input[type="submit"] {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+/*--- Fonts ---*/
+@font-face {
+	font-family: 'Cabin-SemiBold';
+	src:url(../fonts/Cabin-SemiBold.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'Cabin-Regular';
+	src:url(../fonts/Cabin-Regular.ttf) format('truetype');
+}
+/*--- Fonts ---*/
+
+/*--- Index-Page-Styling ---*/
+body {
+	background-color: #1BBC9B;
+	font-family: Cabin-Regular;
+}
+h1 {
+    text-align: center;
+	color: #EEEFF1;
+	font-size: 60px;
+	margin-top: 80px;
+}
+h3{
+    text-align: center;
+	color: #EEEFF1;
+	font-size: 40px;
+	margin-top: 20px;
+}
+.footer {
+    text-align: center;
+    margin-top: 100px;
+}
+.footer p {
+    font-family: Cabin-Regular;
+    color: ghostwhite;
+}
+.footer a {
+    font-family: Cabin-Regular;
+    color: #fff;
+    text-decoration: none;
+     -webkit-transition: all 0.5s ease-in-out;
+     -moz-transition: all 0.5s ease-in-out;
+     -o-transition: all 0.5s ease-in-out;
+     transition: all 0.5s ease-in-out;
+}
+.footer a:hover {
+    color: #000;
+    text-decoration: underline;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+}
+/*--- Index-Page-Styling ---*/
+/*--- Elements ---*/
+
+/*--- Elements ---*/
+/*--- Responsinator Code ---*/
+@media (max-width:1024px) {
+	.footer p {
+	    margin-top: 50px;
+	}
+}
+@media (max-width:768px) {	
+	h1 {
+		margin-top: 40px;
+	}
+}
+@media (max-width:736px) {
+	h1 {
+		margin-top: 40px;
+	}
+	.footer p {
+        margin-top: -65px;
+    }
+}
+@media (max-width:667px) {
+	h1 {
+		margin-top: 40px;
+	}
+	.footer p {
+        margin-top: -65px;
+    }
+}
+@media (max-width:568px) {
+	h1 {
+		margin-top: 40px;
+		font-size: 30px;
+	}
+	.footer p {
+        margin-top: -65px;
+    }
+}
+@media (max-width:414px) {
+	h1 {
+		margin-top: 60px;
+		font-size: 28px;
+	}
+	.footer p {
+        margin-top: -25px;
+    }
+}
+@media (max-width:384px) {
+	h1 {
+	    font-size: 26px;
+	}
+}
+@media (max-width:360px) {
+	h1 {
+		margin-top: 40px;
+		font-size: 24px;
+	}
+}
+@media (max-width:320px) {
+	h1 {
+	    font-size: 23px;
+		margin-top: 40px;
+	}
+    .footer p {
+        margin-top: -70px;
+        font-size: 13px;
+    }
+}
+@media (max-width:240px) {
+    h1 {
+        font-size: 16px;
+        margin-top: 40px;
+    }
+	form p a {
+	    font-size: 12px;
+	}
+}
+/*--- Responsinator Code ---*/
