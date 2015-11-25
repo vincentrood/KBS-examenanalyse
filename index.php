@@ -2,8 +2,6 @@
 require_once("includes/init.php");
 session_start();
 
-//dit is een test voor github
-
 //Als gebruiker al is ingelogd, terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
 	header('Location: '  . BASE_URL . 'dashboard/');
