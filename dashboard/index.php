@@ -20,7 +20,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 
 
 echo"ingelogd..!<br>";
-echo"<a href='/kbs/includes/logout.php'>Log uit</a>";
+echo"<a href='/includes/logout.php'>Log uit</a>";
 
 
 
