@@ -2,7 +2,7 @@
 
 //model wil zeggen: alles wat betrekking heeft tot bepaalde informatie ophalen uit de database en wat de verbanden zijn tussen die gegevens.
 // Hier komen dus alle functies te staan die die informatie ophalen uit de database of juist wat in de database zetten/updaten.
-//Hieronder een voorbeeldje:
+
 
 // checken of naam overeenkomt met een naam uit database
 function Authenticate($user, $password) {
@@ -24,7 +24,9 @@ function Authenticate($user, $password) {
     $match = $results->fetch(PDO::FETCH_ASSOC);
     return $match;
 }
- 
+
+
+//checken of emailadres in gebruik is
 function checkIfUserExists($email){
     require(ROOT_PATH . "includes/database_connect.php");
     try {
@@ -47,8 +49,12 @@ function checkIfUserExists($email){
     }
 }
 
+//leraar toevoegen
 function addTeacher($voornaam, $tussenvoegsel, $achternaam, $afkorting, $emailadres, $wachtwoord, $role){
     require(ROOT_PATH . "includes/database_connect.php");
+    if($tussenvoegsel == ""){
+        $tussenvoegsel = NULL;
+    }
     try {
         $statement = $db->prepare("
            INSERT INTO gebruiker (voornaam, tussenvoegsel, achternaam, emailadres, wachtwoord, account_activated,role) VALUES
@@ -81,6 +87,16 @@ function addTeacher($voornaam, $tussenvoegsel, $achternaam, $afkorting, $emailad
         echo $error_message = "Docent kon niet worden toegevoegd aan de database.";
         exit;
     }
+}
+
+// checken of examen bestaat
+function checkIfExamExists(){
+
+}
+
+//checken of examenvraag bestaat
+function checkIfExamQuestionExists(){
+
 }
 
 
