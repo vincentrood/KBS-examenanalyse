@@ -2,7 +2,7 @@
 require_once("includes/init.php");
 session_start();
 
-//Als gebruiker al is ingelogd, terugsturen naar het dashboard
+//Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
 	header('Location: '  . BASE_URL . 'dashboard/');
 	exit;
@@ -41,12 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 }	
 
-// voor flash messages
-if(!empty($_SESSION['message'])) {
-   $message = $_SESSION['message'];
-   echo $message;
-   unset($_SESSION['message']);
-}
 ?>
 
 <!DOCTYPE html>
@@ -56,10 +50,12 @@ if(!empty($_SESSION['message'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="theme-color" content="#1BBC9B">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="assets/css/login.css" type="text/css" media="all">
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="container">
 			<h1>INLOGGEN</h1>
 			<div class="contact-form">

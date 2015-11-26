@@ -25,12 +25,13 @@ function Authenticate($user, $password) {
     return $match;
 }
 
+//nog niet af
+function getUserData($user) {
 
-function user_data($user) {
     require(ROOT_PATH . "includes/database_connect.php");
     try {
         $results = $db->prepare("
-            SELECT gebruiker_id, voornaam, tussenvoegsel, achternaam, emailadres
+            SELECT *
             FROM gebruiker
             WHERE gebruiker_id = ?");
         $results->bindParam(1,$user);
@@ -43,4 +44,24 @@ function user_data($user) {
     $match = $results->fetch(PDO::FETCH_ASSOC);
     return $match;
 }
+
+function updatePassword($password, $user) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+    $activate = 1;
+    try {
+        $results = $db->prepare("
+            UPDATE gebruiker
+            SET wachtwoord = ?,account_activated = ?
+            WHERE gebruiker_id = ?");
+        $results->bindParam(1,$password);
+        $results->bindValue(2,$activate);
+        $results->bindParam(3,$user);
+        $results->execute();
+    } catch (Exception $e) {
+        echo $error_message = "Data could not be retrieved from the database.";
+        exit;
+    }
+}
+
 
