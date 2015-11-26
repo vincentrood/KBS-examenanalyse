@@ -18,7 +18,7 @@
 			</div> 
 		</div>
 		<div class="footer">
-			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a</p>
+			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</p>
 		</div>
 	</body>
 </html>
