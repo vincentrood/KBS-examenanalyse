@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				//email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
 				// gegevens inserten
 				addTeacher($voornaam, $tussenvoegsel, $achternaam, $afkorting, $emailadres, $generated_password, $rol);
-				
+				//nog niet af!!
 				//wachtwoord mailen naar gebruiker	
 			} else {
 				//email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
@@ -45,8 +45,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   Achternaam <input type="text" name="achternaam"><br>
   Afkorting <input type="text" name="afkorting"><br>
   Emailadres <input type="text" name="emailadres"><br>
- 
-
-
   <input type="submit" value="Voeg toe">
 </form>

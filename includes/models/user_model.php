@@ -89,13 +89,33 @@ function addTeacher($voornaam, $tussenvoegsel, $achternaam, $afkorting, $emailad
     }
 }
 
+//student toevoegen
+function addStudent(){
+
+}
+
+//admin toevoegen
+function addAdmin(){
+
+}
+
 // checken of examen bestaat
 function checkIfExamExists(){
 
 }
 
+//examen toevoegen
+function addExam(){
+
+}
+
 //checken of examenvraag bestaat
 function checkIfExamQuestionExists(){
+
+}
+
+//examenvraag toevoegen
+function addExamQuestion(){
 
 }
 

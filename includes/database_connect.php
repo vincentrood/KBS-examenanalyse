@@ -10,6 +10,6 @@ try {
 	$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	$db->exec("SET NAMES 'utf8'");
 } catch (Exception $e) {
-	echo "Could not connect to the database.";
+	echo "Kon geen verbinding maken met de database.";
 	exit;
 }
