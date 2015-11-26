@@ -1,7 +1,6 @@
 <?php 
 require_once("includes/init.php");
 session_start();
-// hoi sjaak
 
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
