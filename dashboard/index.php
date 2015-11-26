@@ -14,14 +14,9 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 	session_start();
 	$_SESSION['message'] = 'Sessie is verlopen.';
 	header('Location: ' . BASE_URL);
+} else {
+	$_SESSION['timeout'] = time();
 }
-
-
-
-
-
-
-
 
 
 echo"ingelogd..!<br>";
