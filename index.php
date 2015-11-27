@@ -1,4 +1,4 @@
-<?php 
+<?php //test vincent
 require_once("includes/init.php");
 session_start();
 
