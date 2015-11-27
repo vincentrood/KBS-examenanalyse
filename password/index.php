@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="theme-color" content="#1BBC9B">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/login.css" type="text/css" media="all">
 	</head>
@@ -46,14 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 					<form autocomplete="off" method="post" action="">
 						<input type="password" class="user" name = "pass" />
 						<input type="password" class="pass" name = "pass_confirm" />
-						<input type="submit" value="Inloggen" />
-						<p><a href="vergeten.html">Wachtwoord vergeten?</a></p>
+						<input type="submit" value="Stel wachtwoord in" />
 					</form>
 				</div>
 			</div> 
 		</div>
 		<div class="footer">
-			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a</p>
+			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</p>
 		</div>
 	</body>
 </html>
