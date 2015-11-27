@@ -90,3 +90,4 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		</div>
 	</body>
 </html>
+
