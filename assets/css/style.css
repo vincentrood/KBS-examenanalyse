@@ -1,7 +1,7 @@
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p,
 img, strong, b, i,
-dl, dt, dd, ol, ul, li,
+dl, dt, dd, ol, ul, li, a,
 form, label,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, 
@@ -15,6 +15,7 @@ input[type="submit"] {
     font-size:100%;
     vertical-align:baseline;
     background:transparent;
+	text-decoration: none;
 }
 /*--- Fonts ---*/
 @font-face {
@@ -36,13 +37,18 @@ h1 {
     text-align: center;
 	color: #EEEFF1;
 	font-size: 60px;
-	margin-top: 80px;
+}
+h2 {
+	color: #EEEFF1;
+	font-size: 50px;
 }
 h3{
-    text-align: center;
 	color: #EEEFF1;
 	font-size: 40px;
-	margin-top: 20px;
+}
+h4{
+	color: #EEEFF1;
+	font-size: 30px;
 }
 .footer {
     text-align: center;

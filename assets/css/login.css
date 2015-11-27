@@ -8,6 +8,9 @@
 	src:url(../fonts/Cabin-Regular.ttf) format('truetype');
 }
 /*--- Fonts ---*/
+h1 {
+	margin-top: 80px;
+}
 
 /*--- Index-Page-Styling ---*/
 .contact-form {
