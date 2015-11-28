@@ -10,11 +10,13 @@ if (!isset($_SESSION['gebruiker_id'])) {
 }
 
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
+	// sessie destroyen als sessie verlopen is.
 	session_destroy();
 	session_start();
 	$_SESSION['message'] = 'Sessie is verlopen.';
 	header('Location: ' . BASE_URL);
 } else {
+	//als sessie niet verlopen is sessie verlengen
 	$_SESSION['timeout'] = time();
 }
 ?>
@@ -25,6 +27,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="theme-color" content="#1BBC9B">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
 	</head>
@@ -44,7 +47,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 					<img src="../images/dashboard/maleicon.png" alt="headicon">
 				</div>
 				<div class="username">
-					<h3>Bernard Mussche</h3>
+					<h3><?php $data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
 				</div>
 				<div class="settings">
 					<img src="../images/dashboard/settings.png" alt="settings">
@@ -90,3 +93,4 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		</div>
 	</body>
 </html>
+
