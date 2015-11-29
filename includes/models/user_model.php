@@ -5,7 +5,7 @@
 
 
 // checken of naam overeenkomt met een naam uit database
-function addUser ($gegevens) {
+function addUser($gegevens) {
 
     require(ROOT_PATH . "includes/database_connect.php");
 
