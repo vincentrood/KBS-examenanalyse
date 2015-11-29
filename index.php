@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				<div class="formulier">
 					<form method="post" action="">
 						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
-						<input type="password" class="pass" name = "password" value="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
+						<input type="password" class="pass" name = "password" placeholder="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
 						<input type="submit" value="Inloggen" />
 						<p><a href="vergeten.html">Wachtwoord vergeten?</a></p>
 					</form>
