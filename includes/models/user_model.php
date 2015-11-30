@@ -137,7 +137,7 @@ function checkIfExamExists(){
 //examen toevoegen
 function addExam(){
 
-}
+} 
 
 //checken of examenvraag bestaat
 function checkIfExamQuestionExists(){
