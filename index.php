@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="assets/css/login.css" type="text/css" media="all">
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 	<body>
 		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
@@ -61,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div class="contact-form">
 				<div class="formulier">
 					<form method="post" action="">
-						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
-						<input type="password" class="pass" name = "password" value="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
+						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
+						<input type="password" class="pass" name = "password" placeholder="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
 						<input type="submit" value="Inloggen" />
 						<p><a href="vergeten.html">Wachtwoord vergeten?</a></p>
 					</form>
@@ -72,5 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<div class="footer">
 			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</p>
 		</div>
+
+		
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
+ 

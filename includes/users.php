@@ -11,22 +11,23 @@ function passTest($pass, $pass_confirm) {
                     return TRUE;
                 	}
                 	else {
-                		return $message = "Wachtwoorden komen niet overeen";
+                		$_SESSION['message'] = "Wachtwoorden komen niet overeen";
                 	}
                 }
                 else {
-                    return $message = "Wachtwoord moet een hoofdletter bevatten";
+                    $_SESSION['message'] = "Wachtwoord moet een hoofdletter bevatten";
                 }
             }
             else {
-                return $message = "Wachtwoorden moet een cijfer bevatten";                    
+                $_SESSION['message'] = "Wachtwoorden moet een cijfer bevatten";                    
             }
         }
         else {
-            return $message = "Wachtwoord moet minimaal 8 of meer karakters bevatten";
+            $_SESSION['message'] = "Wachtwoord moet minimaal 8 of meer karakters bevatten";
         }
     }
     else {
-        return $message = "Wachtwoord veld is leeg";
+        $_SESSION['message'] = "Wachtwoord veld is leeg";
     }
 }
+

@@ -5,6 +5,74 @@
 
 
 // checken of naam overeenkomt met een naam uit database
+function addUser($gegevens) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    //checkt of tussenvoegsel leeg is gelaten, zoja dan wordt NULL ingevoerd.
+    if($gegevens[1] == ""){
+        $gegevens[1] = NULL;
+    }
+
+    try {
+        $stmt = $db->prepare("
+            INSERT 
+            INTO gebruiker (
+                voornaam, 
+                tussenvoegsel, 
+                achternaam, 
+                emailadres, 
+                wachtwoord, 
+                account_activated, 
+                role
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?) ");
+        $stmt->execute($gegevens);
+    } catch (Exception $e){
+        echo $error_message = "Gebruiker kon niet worden toegevoegd.";
+        exit;
+    }   
+}
+
+//leraar toevoegen
+function addTeacher($emailadres, $docent_afkorting) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    //check gebruiker_id voor het toevoegen van afkorting in tabel docent.
+    try {   
+        $checkGebruikerId = $db->prepare("
+            SELECT gebruiker_id
+            FROM gebruiker
+            WHERE emailadres = ?");
+        $checkGebruikerId->bindParam(1,$emailadres);
+        $checkGebruikerId->execute();
+    } catch (Exception $e){
+        echo $error_message = "Email adres kon niet worden gecontroleerd.";
+        exit;
+    }
+
+    $checkGebruikerId = $checkGebruikerId->fetch(PDO::FETCH_ASSOC);
+    $gebruiker_id = $checkGebruikerId['gebruiker_id']; 
+    // $gebruiker_id bevat id van de leraar zodat de afkorting kan worden toegevoegd.
+        
+    try{
+        $addAfkorting = $db->prepare("
+            INSERT INTO docent (
+                gebruiker_id, 
+                docent_afk
+            ) 
+            VALUES (?, ?) ");
+        $addAfkorting->bindParam(1,$gebruiker_id);
+        $addAfkorting->bindParam(2,$docent_afkorting);
+        $addAfkorting->execute();
+        echo "Docent is toegevoegd!";
+    } catch (Exception $e) {
+        echo $error_message = "Docent kon niet worden toegevoegd aan de database.";
+        exit;
+    }
+}
+
 function Authenticate($user, $password) {
 
     require(ROOT_PATH . "includes/database_connect.php");
@@ -49,46 +117,8 @@ function checkIfUserExists($email){
     }
 }
 
-//leraar toevoegen
-function addTeacher($voornaam, $tussenvoegsel, $achternaam, $afkorting, $emailadres, $wachtwoord, $role){
-    require(ROOT_PATH . "includes/database_connect.php");
-    if($tussenvoegsel == ""){
-        $tussenvoegsel = NULL;
-    }
-    try {
-        $statement = $db->prepare("
-           INSERT INTO gebruiker (voornaam, tussenvoegsel, achternaam, emailadres, wachtwoord, account_activated,role) VALUES
-           (?, ?, ?, ?, ?, ?, ?)");
-        $statement->bindParam(1,$voornaam);
-        $statement->bindParam(2,$tussenvoegsel);
-        $statement->bindParam(3,$achternaam);
-        $statement->bindParam(4,$emailadres);
-        $statement->bindParam(5,$wachtwoord);
-        $statement->bindParam(6,$wachtwoord);
-        $statement->bindParam(7,$role);
-        //check gebruiker_id voor het toevoegen van afkortin in tabel docent. 
-        $statement->execute();
-        $checkGebruikerId = $db->prepare("
-            SELECT gebruiker_id
-            FROM gebruiker
-            WHERE emailadres = ?");
-        $checkGebruikerId->bindParam(1,$emailadres);
-        $checkGebruikerId->execute();
-        $checkGebruikerId = $checkGebruikerId->fetch(PDO::FETCH_ASSOC);
-        $gebruiker_id = $checkGebruikerId['gebruiker_id']; 
-        // $gebruiker_id bevat id van de leraar zodat de afkorting kan worden toegevoegd.
-        $addafkorting = $db->prepare("
-            INSERT INTO docent (gebruiker_id, docent_afk) VALUES (?, ?)");
-        $addafkorting->bindParam(1,$gebruiker_id);
-        $addafkorting->bindParam(2,$afkorting);
-        $addafkorting->execute();
-        echo "Docent is toegevoegd!";
-    } catch (Exception $e) {
-        echo $error_message = "Docent kon niet worden toegevoegd aan de database.";
-        exit;
-    }
-}
 
+ 
 //student toevoegen
 function addStudent(){
 
@@ -107,7 +137,7 @@ function checkIfExamExists(){
 //examen toevoegen
 function addExam(){
 
-}
+} 
 
 //checken of examenvraag bestaat
 function checkIfExamQuestionExists(){
@@ -158,5 +188,4 @@ function updatePassword($password, $user) {
         exit;
     }
 }
-
 
