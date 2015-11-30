@@ -4,7 +4,9 @@
 require_once('/../config/config.php');
 require_once(ROOT_PATH . "includes/init.php");
 require_once(ROOT_PATH . 'includes/admin_functions.php');
+
 session_start();
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	//****************  DOCENT TOEVOEGEN ******************//
@@ -68,8 +70,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="stickymenu">
 			<div class="titlemenu">
 				<div class="logoimg">
@@ -142,5 +146,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				</form>
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</body>
 </html>

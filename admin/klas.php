@@ -8,8 +8,10 @@
 		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
 		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="stickymenu">
 			<div class="titlemenu">
 				<div class="logoimg">
@@ -75,5 +77,6 @@
 				
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</body>
 </html>
