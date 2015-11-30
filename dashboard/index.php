@@ -9,6 +9,12 @@ if (!isset($_SESSION['gebruiker_id'])) {
 	header('Location: ' . BASE_URL);
 }
 
+if(checkRole($_SESSION['gebruiker_id']) == 3){
+                    	header('Location: '  . BASE_URL . 'admin/');
+                    	exit;
+                    }
+                    
+
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();

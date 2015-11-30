@@ -30,7 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 	if($result === TRUE)
 	{
 		$password = password_hash($pass, PASSWORD_BCRYPT);
+		//wachtwoord invoeren in de database en activate_account op 1 zetten ( dus geactiveerd )
 		updatePassword($password, $_SESSION['gebruiker_id']);
+		header('Location: ' . BASE_URL . 'dashboard/');
 	}
 	else {
 		echo $result;

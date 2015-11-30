@@ -42,3 +42,14 @@ function sendMail($mail_content) {
 	}
 }
 
+function passwordVerifyMail($gegevens,$generated_password) {
+        $mail_content = array(
+            "address" => $gegevens[3],
+            "name"    => "",
+            "subject" => "Registratie",
+            "body"    => "Beste " . $gegevens[0] . " " . (empty($gegevens[1]) ? $gegevens[1]: $gegevens[1] . ' ') . $gegevens[2] . ",<br>" . 
+            "<br>Hierbij verzend ik het tijdelijke wachtwoord: " . $generated_password . "<br>Log in op de site om een wachtwoord in te stellen",
+            "altbody" => "wachtwoordregistratie",
+        );
+        return $mail_content;
+    } 

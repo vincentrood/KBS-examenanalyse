@@ -189,3 +189,22 @@ function updatePassword($password, $user) {
     }
 }
 
+function checkRole($userid){
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {   
+        $checkRole = $db->prepare("
+            SELECT role
+            FROM gebruiker
+            WHERE gebruiker_id = ?");
+        $checkRole->bindParam(1,$userid);
+        $checkRole->execute();
+    } catch (Exception $e){
+        echo $error_message = "Rol niet gevonden.";
+        exit;
+    }
+    $checkRole = $checkRole->fetch(PDO::FETCH_ASSOC);
+    $checkRole = $checkRole["role"];
+    return $checkRole;
+}
+
+

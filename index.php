@@ -4,9 +4,16 @@ session_start();
 
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
-	header('Location: '  . BASE_URL . 'dashboard/');
-	exit;
+	if(checkRole($_SESSION['gebruiker_id']) == 3){
+                    	header('Location: '  . BASE_URL . 'admin/');
+                    	exit;
+                    }
+                    else{
+                    header('Location: '  . BASE_URL . 'dashboard/');
+                    exit;
+                	}
 }
+
 
 //gegevens opvragen
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -30,16 +37,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            if ($match === FALSE) {
 	                $_SESSION['message'] = 'Wachtwoord onjuist.';
 	            }
-	            else {
+	            	 else if($user_data['account_activated'] == 0) { 
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
 	            	$_SESSION['timeout'] = time();
-					header('Location: '  . BASE_URL . 'dashboard/');
-					exit;
+	            	header('Location: ' . BASE_URL . 'password/');
+	            	exit;
+	            	}
+	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
+                    $_SESSION['timeout'] = time();
+                    if(checkRole($_SESSION['gebruiker_id']) == 3){
+                    	header('Location: '  . BASE_URL . 'admin/');
+                    	exit;
+                    }
+                    else{
+                    header('Location: '  . BASE_URL . 'dashboard/');
+                    exit;
+                	}
         		}
 			}
 		} 
 	}
-}	
+	
 
 ?>
 
