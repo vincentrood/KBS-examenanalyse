@@ -118,7 +118,7 @@ function checkIfUserExists($email){
 }
 
 
-
+ 
 //student toevoegen
 function addStudent(){
 
