@@ -16,6 +16,7 @@ input[type="submit"] {
     vertical-align:baseline;
     background:transparent;
 	text-decoration: none;
+	color: white;
 }
 /*--- Fonts ---*/
 @font-face {

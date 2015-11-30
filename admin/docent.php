@@ -4,7 +4,7 @@
 require_once('/../config/config.php');
 require_once(ROOT_PATH . "includes/init.php");
 require_once(ROOT_PATH . 'includes/admin_functions.php');
-
+session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	//****************  DOCENT TOEVOEGEN ******************//
@@ -58,17 +58,89 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-
+<!DOCTYPE html>
 <html>
+	<head>
+		<title>Examen Analyse</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="theme-color" content="#1BBC9B">
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
+		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
+	</head>
 	<body>
-		<h2>Voeg leraar toe</h2>
-		<form action="" method="POST">
-  			Voornaam <input type="text" name="voornaam"><br>
-  			Tussenvoegsel <input type="text" name="tussenvoegsel"><br>
-  			Achternaam <input type="text" name="achternaam"><br>
-  			Afkorting <input type="text" name="afkorting"><br>
-  			Emailadres <input type="email" name="emailadres"><br>
-  			<input type="submit" name="submit_docent" value="Voeg toe">
-		</form>
+		<div class="stickymenu">
+			<div class="titlemenu">
+				<div class="logoimg">
+					<img src="../images/dashboard/logo_fruytier.png" alt="logo_fruytier">
+					<img src="../images/dashboard/logo.png" alt="logo">
+				</div>
+				<div class="apptitle">
+					<h1>EXAMENANALYSE</h1>
+				</div>
+			</div>
+			<div class="usermenu">
+				<div class="headicon">
+					<img src="../images/dashboard/maleicon.png" alt="headicon">
+				</div>
+				<div class="username">
+					<h3><?php $data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
+				</div>
+				<div class="settings">
+					<img src="../images/dashboard/settings.png" alt="settings">
+					<ul class="submenu">
+						<li>
+							<a href="#" class="submenuitem">Settings</a>
+						</li>
+						<li>
+							<a href="../includes/logout.php" class="submenuitem">Uitloggen</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="sidemenu">
+			<ul>
+				<a href="/" class="menulink">
+					<li class="menuheading">
+						Dashboard
+					</li>
+				</a>
+				<a href="#" class="menulink">
+					<li class="menuitem">
+						Leerling(en) toevoegen
+					</li>
+				</a>
+				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
+					<li class="menuitem">
+						Docent Toevoegen
+					</li>
+				</a>
+				<a href="#" class="menulink">
+					<li class="menuitem">
+						Klas toevoegen
+					</li>
+				</a>
+				<a href="#" class="menulink">
+					<li class="menuitem">
+						Examens toevoegen
+					</li>
+				</a>
+			</ul>
+		</div>
+		<div class="contentblock">
+			<div class="content">
+				<h2>Voeg leraar toe</h2>
+				<form action="" method="POST">
+		  			Voornaam <input type="text" name="voornaam"><br>
+		  			Tussenvoegsel <input type="text" name="tussenvoegsel"><br>
+		  			Achternaam <input type="text" name="achternaam"><br>
+		  			Afkorting <input type="text" name="afkorting"><br>
+		  			Emailadres <input type="email" name="emailadres"><br>
+		  			<input type="submit" name="submit_docent" value="Voeg toe">
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

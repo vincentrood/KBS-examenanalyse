@@ -70,29 +70,29 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		</div>
 		<div class="sidemenu">
 			<ul>
-				<a href="#" class="menulink">
+				<a href="/" class="menulink">
 					<li class="menuheading">
 						Dashboard
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						<a href="#">Leerling(en) toevoegen</a>
+						Leerling(en) toevoegen
+					</li>
+				</a>
+				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
+					<li class="menuitem">
+						Docent Toevoegen
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
+						Klas toevoegen
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						<a href="#">Klas toevoegen</a>
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						<a href="#">Examens toevoegen</a>
+						Examens toevoegen
 					</li>
 				</a>
 			</ul>
