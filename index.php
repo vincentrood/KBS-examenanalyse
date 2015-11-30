@@ -79,3 +79,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
+ 
