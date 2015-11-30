@@ -50,6 +50,17 @@ h4{
 	color: #EEEFF1;
 	font-size: 30px;
 }
+.alert {
+	display:none;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+	width: 25%;
+}
+
 .footer {
     text-align: center;
     margin-top: 100px;

@@ -7,6 +7,18 @@ session_start();
 if (!isset($_SESSION['gebruiker_id'])) {
 	$_SESSION['message'] = 'Je bent niet ingelogd.';
 	header('Location: ' . BASE_URL);
+	exit;
+}
+
+if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
+	// sessie destroyen als sessie verlopen is.
+	session_destroy();
+	session_start();
+	$_SESSION['message'] = 'Sessie is verlopen.';
+	header('Location: ' . BASE_URL);
+} else {
+	//als sessie niet verlopen is sessie verlengen
+	$_SESSION['timeout'] = time();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
@@ -19,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 	{
 		$password = password_hash($pass, PASSWORD_BCRYPT);
 		updatePassword($password, $_SESSION['gebruiker_id']);
-		echo $password;
 	}
 	else {
 		echo $result;
@@ -40,14 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/login.css" type="text/css" media="all">
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="container">
 			<h1>WACHTWOORD INSTELLEN</h1>
 			<div class="contact-form">
 				<div class="formulier">
 					<form autocomplete="off" method="post" action="">
-						<input type="password" class="user" name = "pass" />
-						<input type="password" class="pass" name = "pass_confirm" />
-						<input type="submit" value="Stel wachtwoord in" />
+						<input type="password" class="user" name = "pass" placeholder="Nieuw wachtwoord">
+						<input type="password" class="pass" name = "pass_confirm" placeholder="Herhaal wachtwoord">
+						<input type="submit" value="Stel wachtwoord in">
 					</form>
 				</div>
 			</div> 
@@ -55,5 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
 		<div class="footer">
 			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</p>
 		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
