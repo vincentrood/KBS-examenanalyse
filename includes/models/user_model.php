@@ -120,7 +120,41 @@ function checkIfUserExists($email){
 
 
 //student toevoegen
-function addStudent(){
+function addStudent($emailadres, $leerling_id, $klas){
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    //vinden van gebruiker_id doormiddel van emailadres
+    try {   
+        $checkGebruikerId = $db->prepare("
+            SELECT gebruiker_id
+            FROM gebruiker
+            WHERE emailadres = ?");
+        $checkGebruikerId->bindParam(1,$emailadres);
+        $checkGebruikerId->execute();
+    } catch (Exception $e){
+        echo $error_message = "Email adres kon niet worden gecontroleerd.";
+        exit;
+    }
+
+    $checkGebruikerId = $checkGebruikerId->fetch(PDO::FETCH_ASSOC);
+    $gebruiker_id = $checkGebruikerId['gebruiker_id']; 
+
+    //vinden van klas_id doormiddel van klas
+    try {
+        $checkKlasId = $db->prepare("
+            SELECT klas_id
+            FROM klas
+            WHERE klas = ?");
+        $checkKlasId->bindParam(1,$klas);
+        $checkKlasId->execute();
+    } catch (Exception $e){
+        echo $error_message = "Klas kon niet worden gecontroleerd.";
+    }
+
+    $checkKlasId = $checkKlasId->fetch(PDO::FETCH_ASSOC);
+    $klas_id = $checkKlasId['klas_id'];
+
+
 
 }
 
