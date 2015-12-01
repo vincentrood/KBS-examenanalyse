@@ -9,16 +9,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//checken als er gegevens ingevoerd zijn
 	if (isset($_POST['user'])) {
 		$email = trim($_POST['user']);
-		
-		if(!checkIfUserExists($email)) {
-			$_SESSION['message'] = 'Email adres niet gevonden.';
-		} else {
-			$user_data = checkIfUserExists($email);
-			$user_id = $user_data['gebruiker_id'];
-			$email_code = $user_data['email_code'];
-			$url_code ="index.php?id=" . $user_id . "&email_code=" . $email_code;
-			$mail_content = passwordResetMail($user_data,$url_code);
-			sendMail($mail_content);
+		$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+		if (!$email) {
+			$_SESSION['message'] = 'Voer een geldig e-mailadres in.';	
+		}
+		else {
+			if(!checkIfUserExists($email)) {
+				$_SESSION['message'] = 'Email adres niet gevonden.';
+			} 
+			else {
+				$user_data = checkIfUserExists($email);
+				$user_id = $user_data['gebruiker_id'];
+				$email_code = $user_data['email_code'];
+				$url_code ="index.php?id=" . $user_id . "&email_code=" . $email_code;
+				$mail_content = passwordResetMail($user_data,$url_code);
+				sendMail($mail_content);
+				$_SESSION['message-success'] = 'Er is een e-mail verstuurd om uw wachtwoord opnieuw in te stellen.';
+			}
 		}
 	}
 }
@@ -42,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div class="contact-form">
 				<div class="formulier">
 					<form method="post" action="">
-						<input type="email" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Email adres";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
+						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Email adres";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
 						<input type="submit" value="Vestuur mail" />
 					</form>
 				</div>

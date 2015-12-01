@@ -27,34 +27,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// overbodige ingevoerde spaties weghalen met functie trim
 			$gebruiker = trim($_POST['user']);
 			$wachtwoord = trim($_POST['password']);
-			$user_data = Authenticate($gebruiker);
-	        if ($gebruiker !== $user_data['emailadres']) {
-	            $_SESSION['message'] = 'Gebruiker niet gevonden';
-	        	}
-    		//naam gevonden, nu controleren of wachtwoord overeenkomt. zoja doorsturen.
-        	else {
-	            $match = password_verify($wachtwoord, $user_data["wachtwoord"]);
-	            if ($match === FALSE) {
-	                $_SESSION['message'] = 'Wachtwoord onjuist.';
-	                header('Location: ' . BASE_URL);
-	                exit;
-	            } else if($user_data['account_activated'] == 0) { 
-	            	$_SESSION['account_activated'] = $user_data["account_activated"];
+
+			$gebruiker = filter_var($gebruiker, FILTER_VALIDATE_EMAIL);
+			if (!$gebruiker) {
+			$_SESSION['message'] = 'Voer een geldig e-mailadres in.';	
+			}
+			else {
+				$user_data = Authenticate($gebruiker);
+		        if ($gebruiker !== $user_data['emailadres']) {
+		            $_SESSION['message'] = 'Gebruiker niet gevonden';
+		        	}
+	    		//naam gevonden, nu controleren of wachtwoord overeenkomt. zoja doorsturen.
+	        	else {
+		            $match = password_verify($wachtwoord, $user_data["wachtwoord"]);
+		            if ($match === FALSE) {
+		                $_SESSION['message'] = 'Wachtwoord onjuist.';
+		                header('Location: ' . BASE_URL);
+		                exit;
+		            } else if($user_data['account_activated'] == 0) { 
+		            	$_SESSION['account_activated'] = $user_data["account_activated"];
+		            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
+		            	$_SESSION['timeout'] = time();
+		            	header('Location: ' . BASE_URL . 'password/');
+		            	exit;
+	            	}
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
-	            	$_SESSION['timeout'] = time();
-	            	header('Location: ' . BASE_URL . 'password/');
-	            	exit;
-            	}
-            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
-                $_SESSION['timeout'] = time();
-                if(checkRole($_SESSION['gebruiker_id']) == 3){
-                	header('Location: '  . BASE_URL . 'admin/');
-                	exit;
-                }
-                else {
-                    header('Location: '  . BASE_URL . 'dashboard/');
-                    exit;
-                }
+	                $_SESSION['timeout'] = time();
+	                if(checkRole($_SESSION['gebruiker_id']) == 3){
+	                	header('Location: '  . BASE_URL . 'admin/');
+	                	exit;
+	                }
+	                else {
+	                    header('Location: '  . BASE_URL . 'dashboard/');
+	                    exit;
+	                }
+				}
+
 			}
 		}
 	} 

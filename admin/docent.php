@@ -15,47 +15,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (isset($_POST['voornaam'], $_POST['achternaam'], $_POST['afkorting'], $_POST['emailadres'])) {
 			//checken of er geen lege waarden zijn ingevoerd
 			if ($_POST['voornaam'] == "" OR $_POST['achternaam'] == "" OR $_POST['afkorting'] == "" OR $_POST['emailadres'] == "") {
-				echo "Je moet alle gegevens invullen!";
+				$_SESSION['message'] = "Je moet alle gegevens invullen!";
 			} 
 			else {
 				// overbodige ingevoerde spaties weghalen met functie trim
-				$voornaam = trim($_POST['voornaam']);
-				$achternaam = trim($_POST['achternaam']);
-				$tussenvoegsel = $_POST['tussenvoegsel'];//tussenvoegsel mag spatie bevatten
-				$docent_afkorting = trim($_POST['afkorting']);
-				$emailadres = trim($_POST['emailadres']);
-				$role = 2; // is leraar
-				$account_activated = 0; //account is nog niet geactiveerd, dit wordt pas gedaan als gebruiker eerste keer inlogt.
-				$generated_password = generate_random_password();
-				$wachtwoord = password_hash($generated_password, PASSWORD_BCRYPT);
-				$email_code = md5($voornaam + microtime());
+				$voornaam = filter_var(trim($_POST['voornaam']), FILTER_SANITIZE_STRING);
 
-				//returned $generated_password
+				$achternaam = filter_var(trim($_POST['achternaam']), FILTER_SANITIZE_STRING);
+				$tussenvoegsel = filter_var($_POST['tussenvoegsel'], FILTER_SANITIZE_STRING);//tussenvoegsel mag spatie bevatten
+				$docent_afkorting = filter_var(trim($_POST['afkorting']), FILTER_SANITIZE_STRING);
+				$emailadres = filter_var(trim($_POST['emailadres']), FILTER_VALIDATE_EMAIL);
+				if (!$emailadres) {
+					$_SESSION['message'] = 'Voer een geldig e-mailadres in.';
+				}
+				else {	
+					$role = 2; // is leraar
+					$account_activated = 0; //account is nog niet geactiveerd, dit wordt pas gedaan als gebruiker eerste keer inlogt.
+					$generated_password = generate_random_password();
+					$wachtwoord = password_hash($generated_password, PASSWORD_BCRYPT);
+					$email_code = md5($voornaam + microtime());
 
-				$gegevens = [ 
-					$voornaam,
-					$tussenvoegsel,
-					$achternaam,
-					$emailadres,
-					$email_code,
-					$wachtwoord,
-					$account_activated,
-					$role
-				];
+					//returned $generated_password
 
-				//checken of email en afkorting uniek zijn
-				if(checkIfUserExists($emailadres) === FALSE){
-					//email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
-					// gegevens inserten
-					addUser($gegevens);
-					addTeacher($gegevens[3], $docent_afkorting);
-					//nog niet af!!
-					//wachtwoord mailen naar gebruiker
-					$mail_content = createTempPasswordMail($gegevens,$generated_password);
-					sendMail($mail_content);
-				} else {
-					//email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
-					echo "Email adres is al in gebruik";
+					$gegevens = [ 
+						$voornaam,
+						$tussenvoegsel,
+						$achternaam,
+						$emailadres,
+						$email_code,
+						$wachtwoord,
+						$account_activated,
+						$role
+					];
+
+					//checken of email en afkorting uniek zijn
+					if(checkIfUserExists($emailadres) === FALSE){
+						//email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
+						// gegevens inserten
+						addUser($gegevens);
+						addTeacher($gegevens[3], $docent_afkorting);
+						//nog niet af!!
+						//wachtwoord mailen naar gebruiker
+						$mail_content = createTempPasswordMail($gegevens,$generated_password);
+						sendMail($mail_content);
+					} else {
+						//email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
+						$_SESSION['message'] = "Email adres is al in gebruik";
+					}
 				}
 			}
 		}
@@ -144,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		  			Tussenvoegsel <input type="text" name="tussenvoegsel"><br>
 		  			Achternaam <input type="text" name="achternaam"><br>
 		  			Afkorting <input type="text" name="afkorting"><br>
-		  			Emailadres <input type="email" name="emailadres"><br>
+		  			Emailadres <input type="text" name="emailadres"><br>
 		  			<input type="submit" name="submit_docent" value="Voeg toe">
 				</form>
 			</div>
