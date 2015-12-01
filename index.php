@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// overbodige ingevoerde spaties weghalen met functie trim
 			$gebruiker = trim($_POST['user']);
 			$wachtwoord = trim($_POST['password']);
+
 			$gebruiker = filter_var($gebruiker, FILTER_VALIDATE_EMAIL);
 			if (!$gebruiker) {
 			$_SESSION['message'] = 'Voer een geldig e-mailadres in.';	
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	                    exit;
 	                }
 				}
+
 			}
 		}
 	} 
