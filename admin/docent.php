@@ -28,6 +28,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				$account_activated = 0; //account is nog niet geactiveerd, dit wordt pas gedaan als gebruiker eerste keer inlogt.
 				$generated_password = generate_random_password();
 				$wachtwoord = password_hash($generated_password, PASSWORD_BCRYPT);
+				$email_code = md5($voornaam + microtime());
+
 				//returned $generated_password
 
 				$gegevens = [ 
@@ -35,20 +37,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					$tussenvoegsel,
 					$achternaam,
 					$emailadres,
+					$email_code,
 					$wachtwoord,
 					$account_activated,
 					$role
 				];
 
 				//checken of email en afkorting uniek zijn
-				if(checkIfUserExists($emailadres)){
+				if(checkIfUserExists($emailadres) === FALSE){
 					//email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
 					// gegevens inserten
 					addUser($gegevens);
 					addTeacher($gegevens[3], $docent_afkorting);
 					//nog niet af!!
 					//wachtwoord mailen naar gebruiker
-					$mail_content = createEmail($gegevens,$generated_password);
+					$mail_content = createTempPasswordMail($gegevens,$generated_password);
 					sendMail($mail_content);
 				} else {
 					//email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.

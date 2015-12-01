@@ -25,6 +25,9 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 	//als sessie niet verlopen is sessie verlengen
 	$_SESSION['timeout'] = time();
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,7 +97,26 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		</div>
 		<div class="contentblock">
 			<div class="content">
-				<h1>INFORMATIE</h1>
+				<h1>Voeg een examen toe</h1>
+				<form action="" method="POST">
+		  			Vak <input type="text" name="voornaam"><br>
+		  			Jaar <input type="text" name="tussenvoegsel"><br>
+		  			Tijdvak <input type="text" name="achternaam"><br>
+		  			nTerm <input type="text" name="afkorting"><br>
+		  			Niveau <input type="email" name="emailadres"><br>
+		  			<input type="submit" name="submit_docent" value="Voeg toe">
+
+		  			<form method="post" action="collect_vals.php">
+<div class="input_fields_wrap">
+    <button class="add_field_button">Add More Fields</button>
+    <div><input type="text" name="mytext[]"></div>
+    <div><input type="text" name="mytext[]"></div>
+    <div><input type="text" name="mytext[]"></div>
+    <div><input type="text" name="mytext[]"></div>
+    <div><input type="text" name="mytext[]"></div>
+</div>
+</form>
+				</form>
 			</div>
 		</div>
 	</body>

@@ -22,11 +22,12 @@ function addUser($gegevens) {
                 tussenvoegsel, 
                 achternaam, 
                 emailadres, 
+                email_code,
                 wachtwoord, 
                 account_activated, 
                 role
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?) ");
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
         $stmt->execute($gegevens);
     } catch (Exception $e){
         echo $error_message = "Gebruiker kon niet worden toegevoegd.";
@@ -73,7 +74,7 @@ function addTeacher($emailadres, $docent_afkorting) {
     }
 }
 
-function Authenticate($user, $password) {
+function Authenticate($user) {
 
     require(ROOT_PATH . "includes/database_connect.php");
     try {
@@ -110,10 +111,12 @@ function checkIfUserExists($email){
     }
 
     $match = $results->fetch(PDO::FETCH_ASSOC);
+    
     if($match == ""){
-        return true;
-    } else {
+ 
         return false;
+    } else {
+        return $match;
     }
 }
 
@@ -188,6 +191,50 @@ function updatePassword($password, $user) {
         exit;
     }
 }
+function checkEmailCode($user,$email_code) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {
+        $results = $db->prepare("
+            SELECT *
+            FROM gebruiker
+            WHERE gebruiker_id = ? AND email_code = ?");
+        $results->bindParam(1,$user);
+        $results->bindParam(2,$email_code);
+        $results->execute();
+    } catch (Exception $e) {
+        echo $error_message = "Data could not be retrieved from the database.";
+        exit;
+    }
+
+    $match = $results->rowCount();
+    
+    if ($match < 1) {
+        return FALSE;
+    }
+    else{
+        return $match;
+    }
+}
+
+function update_email_code($user,$email_code) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    try {
+        $stmt = $db->prepare("
+            UPDATE gebruiker
+            SET email_code = ?
+            WHERE gebruiker_id = ?");
+        $stmt->bindParam(1,$email_code);
+       $stmt->bindParam(2,$user);
+        $stmt->execute();
+    } catch (Exception $e) {
+        echo $error_message = "Data could not be retrieved from the database.";
+        exit;
+    }
+    echo "gelukt";
+} 
 
 function checkRole($userid){
     require(ROOT_PATH . "includes/database_connect.php");

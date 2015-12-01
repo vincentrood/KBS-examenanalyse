@@ -1,44 +1,54 @@
 <?php
 require_once('/../config/config.php');
 require_once(ROOT_PATH . "includes/init.php");
-
 session_start();
-
 if (!isset($_SESSION['gebruiker_id'])) {
-	$_SESSION['message'] = 'Je bent niet ingelogd.';
+	if(!isset($_SESSION['account_activated'])) {
+		if (!isset($_GET['id'],$_GET['email_code'])) {
+		$_SESSION['message'] = 'Toegang geweigerd.';
+		header('Location: ' . BASE_URL);
+		exit;
+		} else {
+			$user_id = intval($_GET['id']);
+			$email_code = $_GET['email_code'];
+			if(!checkEmailCode($user_id,$email_code)) {
+				unset($user_id,$email_code);
+				$_SESSION['message'] = 'Toegang geweigerd.';
+				header('Location: ' . BASE_URL);
+				exit;
+			}
+			$pass = 1;
+		}
+	}
+}
+if(!isset($_SESSION['account_activated']) AND !isset($pass)) {
+	$_SESSION['message'] = 'Toegang geweigerd.';
 	header('Location: ' . BASE_URL);
 	exit;
 }
-
-if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
-	// sessie destroyen als sessie verlopen is.
-	session_destroy();
-	session_start();
-	$_SESSION['message'] = 'Sessie is verlopen.';
-	header('Location: ' . BASE_URL);
-} else {
-	//als sessie niet verlopen is sessie verlengen
-	$_SESSION['timeout'] = time();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['gebruiker_id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
 	$pass_confirm = filter_input(INPUT_POST, 'pass_confirm', FILTER_SANITIZE_SPECIAL_CHARS);
-
-	$result = passTest($pass, $pass_confirm);
 	
-	if($result === TRUE)
-	{
+	if(passTest($pass, $pass_confirm) === TRUE) {
+		if(isset($_SESSION['gebruiker_id'])) {
+			$user_id = $_SESSION['gebruiker_id'];
+		}
 		$password = password_hash($pass, PASSWORD_BCRYPT);
 		//wachtwoord invoeren in de database en activate_account op 1 zetten ( dus geactiveerd )
-		updatePassword($password, $_SESSION['gebruiker_id']);
-		header('Location: ' . BASE_URL . 'dashboard/');
-	}
-	else {
-		echo $result;
+		updatePassword($password, $user_id);
+		unset($_SESSION['account_activated']);
+		if(isset($user_id,$email_code)) {
+			//nieuwe email code aanmaken en opslaan.
+			$email_code = md5($user_id + microtime());
+			update_email_code($user_id,$email_code);
+			header('Location: ' . BASE_URL);
+		}
+		else {
+			header('Location: ' . BASE_URL . 'dashboard/');
+		}		
 	}
 }
-
 ?>
 
 <!DOCTYPE html>

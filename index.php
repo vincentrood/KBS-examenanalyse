@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// overbodige ingevoerde spaties weghalen met functie trim
 			$gebruiker = trim($_POST['user']);
 			$wachtwoord = trim($_POST['password']);
-			$user_data = Authenticate($gebruiker, $wachtwoord);
+			$user_data = Authenticate($gebruiker);
 	        if ($gebruiker !== $user_data['emailadres']) {
 	            $_SESSION['message'] = 'Gebruiker niet gevonden';
 	        	}
@@ -37,12 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            if ($match === FALSE) {
 	                $_SESSION['message'] = 'Wachtwoord onjuist.';
 	            }
-	            	 else if($user_data['account_activated'] == 0) { 
+	            	else if($user_data['account_activated'] == 0) { 
+	            	$_SESSION['account_activated'] = $user_data["account_activated"];
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
 	            	$_SESSION['timeout'] = time();
 	            	header('Location: ' . BASE_URL . 'password/');
 	            	exit;
 	            	}
+
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
                     $_SESSION['timeout'] = time();
                     if(checkRole($_SESSION['gebruiker_id']) == 3){
@@ -83,8 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
 						<input type="password" class="pass" name = "password" placeholder="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
 						<input type="submit" value="Inloggen" />
-						<p><a href="vergeten.html">Wachtwoord vergeten?</a></p>
-					</form>
+						<p><a href="wachtwoord_vergeten.php">Wachtwoord vergeten?</a></p>					</form>
 				</div>
 			</div> 
 		</div>

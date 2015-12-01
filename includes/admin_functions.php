@@ -12,7 +12,7 @@ function generate_random_password() {
 }
 
 
-function createEmail($gegevens,$generated_password) {
+function createTempPasswordMail($gegevens,$generated_password) {
         $mail_content = array(
             "address" => $gegevens[3],
             "name"    => "",
@@ -53,3 +53,20 @@ function passwordVerifyMail($gegevens,$generated_password) {
         );
         return $mail_content;
     } 
+
+
+//body staat nu nog localhost voor de base_url voor lokaal gebruik
+function passwordResetMail($user_data,$url_code) {
+        $mail_content = array(
+            "address" => $user_data['emailadres'],
+            "name"    => "",
+            "subject" => "Wachtwoord wijzigen",
+            "body"    => 'Beste ' . $user_data['voornaam'] . ' ' 
+            . (empty($user_data['tussenvoegsel']) ? $user_data['tussenvoegsel']: $user_data['tussenvoegsel'] . ' ') 
+            . $user_data['achternaam'] . ',<br>' 
+            . '<br>Hierbij verzend ik de link om uw wachtwoord opnieuw in te stellen:<br> 
+            <a href="http://localhost' . BASE_URL . 'password/' . $url_code . '">localhost' . BASE_URL . 'password/' . $url_code . '</a>',
+            "altbody" => "wachtwoordregistratie",
+        );
+        return $mail_content;
+    }
