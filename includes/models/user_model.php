@@ -30,7 +30,7 @@ function addUser($gegevens) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
         $stmt->execute($gegevens);
     } catch (Exception $e){
-        echo $error_message = "Gebruiker kon niet worden toegevoegd.";
+        $_SESSION['message'] = "Gebruiker kon niet worden toegevoegd.";
         exit;
     }   
 }
@@ -49,7 +49,7 @@ function addTeacher($emailadres, $docent_afkorting) {
         $checkGebruikerId->bindParam(1,$emailadres);
         $checkGebruikerId->execute();
     } catch (Exception $e){
-        echo $error_message = "Email adres kon niet worden gecontroleerd.";
+        $_SESSION['message'] = "Email adres kon niet worden gecontroleerd.";
         exit;
     }
 
@@ -67,9 +67,9 @@ function addTeacher($emailadres, $docent_afkorting) {
         $addAfkorting->bindParam(1,$gebruiker_id);
         $addAfkorting->bindParam(2,$docent_afkorting);
         $addAfkorting->execute();
-        echo "Docent is toegevoegd!";
+        $_SESSION['message-success'] = "Docent is toegevoegd!";
     } catch (Exception $e) {
-        echo $error_message = "Docent kon niet worden toegevoegd aan de database.";
+        $_SESSION['message'] = "Docent kon niet worden toegevoegd aan de database.";
         exit;
     }
 }
@@ -86,7 +86,7 @@ function Authenticate($user) {
         $results->bindParam(2,$user);
         $results->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 
@@ -106,7 +106,7 @@ function checkIfUserExists($email){
         $results->bindParam(1,$email);
         $results->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 
@@ -165,7 +165,7 @@ function getUserData($user) {
         $results->bindParam(1,$user);
         $results->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 
@@ -187,7 +187,7 @@ function updatePassword($password, $user) {
         $results->bindParam(3,$user);
         $results->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 }
@@ -203,7 +203,7 @@ function checkEmailCode($user,$email_code) {
         $results->bindParam(2,$email_code);
         $results->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 
@@ -230,10 +230,10 @@ function update_email_code($user,$email_code) {
        $stmt->bindParam(2,$user);
         $stmt->execute();
     } catch (Exception $e) {
-        echo $error_message = "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
-    echo "gelukt";
+    $_SESSION['message'] = "gelukt";
 } 
 
 function checkRole($userid){
@@ -246,7 +246,7 @@ function checkRole($userid){
         $checkRole->bindParam(1,$userid);
         $checkRole->execute();
     } catch (Exception $e){
-        echo $error_message = "Rol niet gevonden.";
+        $_SESSION['message'] = "Rol niet gevonden.";
         exit;
     }
     $checkRole = $checkRole->fetch(PDO::FETCH_ASSOC);

@@ -27,8 +27,8 @@ if(!isset($_SESSION['account_activated']) AND !isset($pass)) {
 	exit;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
-	$pass_confirm = filter_input(INPUT_POST, 'pass_confirm', FILTER_SANITIZE_SPECIAL_CHARS);
+	$pass = $_POST['pass'];
+	$pass_confirm = $_POST['pass_confirm'];
 	
 	if(passTest($pass, $pass_confirm) === TRUE) {
 		if(isset($_SESSION['gebruiker_id'])) {
@@ -42,10 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			//nieuwe email code aanmaken en opslaan.
 			$email_code = md5($user_id + microtime());
 			update_email_code($user_id,$email_code);
+			$_SESSION['message-success'] = 'Uw wachtwoord is gewijzigd!';
 			header('Location: ' . BASE_URL);
+			exit;
 		}
 		else {
 			header('Location: ' . BASE_URL . 'dashboard/');
+			exit;
 		}		
 	}
 }

@@ -35,10 +35,7 @@ function sendMail($mail_content) {
 	$mail->AltBody = $mail_content["altbody"];
 
 	if (!$mail->send()){ // email verzenden
-		echo 'Mailer Error: ' . $mail->ErrorInfo;
-	}
-	else {
-		echo 'Bericht verzonden!';
+		$_SESSION['message'] = 'Mailer Error: ' . $mail->ErrorInfo;
 	}
 }
 
