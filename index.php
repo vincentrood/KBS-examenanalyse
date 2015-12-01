@@ -5,13 +5,13 @@ session_start();
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
 	if(checkRole($_SESSION['gebruiker_id']) == 3){
-                    	header('Location: '  . BASE_URL . 'admin/');
-                    	exit;
-                    }
-                    else{
-                    header('Location: '  . BASE_URL . 'dashboard/');
-                    exit;
-                	}
+    	header('Location: '  . BASE_URL . 'admin/');
+    	exit;
+    }
+    else{
+    	header('Location: '  . BASE_URL . 'dashboard/');
+    	exit;
+	}
 }
 
 
@@ -36,29 +36,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            $match = password_verify($wachtwoord, $user_data["wachtwoord"]);
 	            if ($match === FALSE) {
 	                $_SESSION['message'] = 'Wachtwoord onjuist.';
-	            }
-	            	else if($user_data['account_activated'] == 0) { 
+	                header('Location: ' . BASE_URL);
+	                exit;
+	            } else if($user_data['account_activated'] == 0) { 
 	            	$_SESSION['account_activated'] = $user_data["account_activated"];
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
 	            	$_SESSION['timeout'] = time();
 	            	header('Location: ' . BASE_URL . 'password/');
 	            	exit;
-	            	}
-
-	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
-                    $_SESSION['timeout'] = time();
-                    if(checkRole($_SESSION['gebruiker_id']) == 3){
-                    	header('Location: '  . BASE_URL . 'admin/');
-                    	exit;
-                    }
-                    else{
+            	}
+            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
+                $_SESSION['timeout'] = time();
+                if(checkRole($_SESSION['gebruiker_id']) == 3){
+                	header('Location: '  . BASE_URL . 'admin/');
+                	exit;
+                }
+                else {
                     header('Location: '  . BASE_URL . 'dashboard/');
                     exit;
-                	}
-        		}
+                }
 			}
-		} 
-	}
+		}
+	} 
+}
 	
 
 ?>
