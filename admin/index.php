@@ -103,7 +103,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 			<div class="content">
 				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
 				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-		<a href="#">Leerling(en) toevoegen</a>
+				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
 		<a href="#">Klas toevoegen</a>
 		<a href="#">Examens toevoegen</a>
 			</div>
