@@ -122,10 +122,7 @@ function checkIfUserExists($email){
 
 
  
-//student toevoegen
-function addStudent(){
 
-}
 
 //admin toevoegen
 function addAdmin(){
@@ -237,3 +234,62 @@ function checkRole($userid){
 }
 
 
+//student toevoegen
+function addStudent($emailadres, $leerling_id, $klas){
+     require(ROOT_PATH . "includes/database_connect.php");
+
+    //vind gebruikers_id doormiddel van emailadres.
+    try {   
+        $checkGebruikerId = $db->prepare("
+            SELECT gebruiker_id
+            FROM gebruiker
+            WHERE emailadres = ?");
+        $checkGebruikerId->bindParam(1,$emailadres);
+        $checkGebruikerId->execute();
+    } catch (Exception $e){
+        echo $error_message = "Email adres kon niet worden gecontroleerd.";
+        exit;
+    }
+
+    $checkGebruikerId = $checkGebruikerId->fetch(PDO::FETCH_ASSOC);
+    $gebruiker_id = $checkGebruikerId['gebruiker_id']; 
+
+    //vind klas doormiddel van klas_id.
+    try {
+        $checkKlasId = $db ->prepare("
+            SELECT klas_id
+            FROM klas
+            WHERE klas = ?");
+        $checkKlasId->bindParam(1,$klas);
+        $checkKlasId->execute();
+    } catch (Exception $e) {
+        echo $error_message = "Klas id kan niet worden gecontroleerd.";
+        exit;
+    }
+
+    $checkKlasId = $checkKlasId->fetch(PDO::FETCH_ASSOC);
+    $klas_id = $checkKlasId['klas_id']; 
+
+    // $gebruiker_id bevat id van de leraar zodat de afkorting kan worden toegevoegd.
+        
+    try{
+        $addLeerling_Id = $db->prepare("
+            INSERT INTO leerling (
+                gebruiker_id, 
+                leerling_id, 
+                klas_id
+            ) 
+            VALUES (?, ?, ?) ");
+        $addLeerling_Id->bindParam(1,$gebruiker_id);
+        $addLeerling_Id->bindParam(2,$leerling_id);
+        $addLeerling_Id->bindParam(3,$klas_id);
+        $addLeerling_Id->execute();
+        echo "Leerling is toegevoegd!";
+    } catch (Exception $e) {
+        echo $error_message = "Leerling kon niet worden toegevoegd aan de database.";
+        exit;
+    }
+
+
+
+}
