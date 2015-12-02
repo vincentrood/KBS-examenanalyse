@@ -60,6 +60,7 @@ h4{
 	right: 0;
 	text-align: center;
 	width: 25%;
+	z-index: 1000;
 }
 
 .footer {
