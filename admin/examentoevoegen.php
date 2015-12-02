@@ -1,6 +1,9 @@
 <?php
 require_once('/../config/config.php');
 require_once(ROOT_PATH . "includes/init.php");
+
+// test 
+
 //sessie starten
 session_start();
 // checken of gebruiker ingelogd is
