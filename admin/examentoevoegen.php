@@ -1,20 +1,19 @@
 <?php
-
-// de admin pagina, dit wordt natuurlijk nog uitgebreid.
-require_once("/../includes/init.php");
-require_once('/../includes/admin_functions.php');
-
+require_once('/../config/config.php');
+require_once(ROOT_PATH . "includes/init.php");
+//sessie starten
 session_start();
-
-//Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
-if (isset($_SESSION['gebruiker_id'])) {
-	if(checkRole($_SESSION['gebruiker_id']) != 3){
+// checken of gebruiker ingelogd is
+if (!isset($_SESSION['gebruiker_id'])) {
+	$_SESSION['message'] = 'Je bent niet ingelogd.';
+	header('Location: ' . BASE_URL);
+}
+//checken of gebruiker misschien admin in 
+if(checkRole($_SESSION['gebruiker_id']) != 3){
                     	header('Location: '  . BASE_URL . 'dashboard/');
                     	exit;
                     }
-          }
-
-
+//checken of sessie verlopen is           
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();
@@ -25,6 +24,48 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 	//als sessie niet verlopen is sessie verlengen
 	$_SESSION['timeout'] = time();
 }
+//examen toevoegen
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+	
+	//****************  EXAMEN TOEVOEGEN ******************//
+
+	if(isset($_POST['submit_examen'])) {
+		if (isset($_POST['vak'], $_POST['jaar'], $_POST['tijdvak'], $_POST['nterm'], $_POST['niveau'])) {
+			//checken of er geen lege waarden zijn ingevoerd
+			if ($_POST['vak'] == "" OR $_POST['jaar'] == "" OR $_POST['tijdvak'] == "" OR $_POST['nterm'] == "" OR $_POST['niveau'] == "") {
+				$_SESSION['message'] = 'Je moet alle gegevens invullen!';
+			} 
+			else {
+				// overbodige ingevoerde spaties weghalen met functie trim
+				$vak = filter_var(trim($_POST['vak']), FILTER_SANITIZE_STRING);
+				$jaar = filter_var(trim($_POST['jaar']), FILTER_SANITIZE_STRING);
+				$tijdvak = filter_var(trim($_POST['tijdvak']), FILTER_SANITIZE_STRING);//tussenvoegsel mag spatie bevatten
+				$nterm = filter_var(trim($_POST['nterm']), FILTER_SANITIZE_STRING);
+				$niveau = filter_var(trim($_POST['niveau']), FILTER_SANITIZE_STRING);
+				
+				$gegevens = [ 
+					$vak,
+					$jaar,
+					$tijdvak,
+					$nterm,
+					$niveau
+				];
+
+				//checken of email en afkorting uniek zijn
+				if(checkIfExamExists($vak, $jaar, $tijdvak) === FALSE){
+					//examen bestaat niet en kan dus worden toegevoegd
+					// gegevens inserten
+					addExam($gegevens);
+					
+				} else {
+					//examen bestaat al.
+					$_SESSION['message'] = 'Dit examen bestaat al.';
+				}
+			}
+		}
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,42 +120,36 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
+						Examen
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Klas toevoegen
+						Resultaten
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Examens toevoegen
+						Score
 					</li>
 				</a>
 			</ul>
 		</div>
 		<div class="contentblock">
 			<div class="content">
-				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-				<a href="#">Klas toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/examentoevoegen.php">Eamen(s) toevoegen</a>
+				<h1>Voeg een examen toe</h1>
+				<form action="" method="POST">
+		  			Vak <input type="text" name="vak"><br>
+		  			Jaar <input type="text" name="jaar"><br>
+		  			Tijdvak <input type="text" name="tijdvak"><br>
+		  			nTerm <input type="text" name="nterm"><br>
+		  			Niveau <input type="text" name="niveau"><br>
+		  			<input type="submit" name="submit_examen" value="Voeg toe">
+				</form>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
-
-
-
-
-
-
 
