@@ -69,6 +69,16 @@
 						Examens toevoegen
 					</li>
 				</a>
+				<a href="#" class="menulink itembottom">
+					<li class="menuitem">
+						Settings
+					</li>
+				</a>
+				<a href="../includes/logout.php" class="menulink itembottom">
+					<li class="menuitem">
+						Uitloggen
+					</li>
+				</a>
 			</ul>
 		</div>
 		<div class="contentblock">

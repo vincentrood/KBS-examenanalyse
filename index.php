@@ -1,7 +1,12 @@
 <?php 
 require_once("includes/init.php");
 session_start();
-
+/*
+$wachtwoord = 'vincent';
+$wachtwoord = password_hash($wachtwoord, PASSWORD_BCRYPT);
+echo $wachtwoord;
+exit;
+*/
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
 	if(checkRole($_SESSION['gebruiker_id']) == 3){
