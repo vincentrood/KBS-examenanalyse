@@ -5,23 +5,61 @@
 //Hieronder een voorbeeldje:
 
 
-function get_products_search($s) {
-    require(ROOT_PATH . "inc/database.php");
-
+// checken of examen bestaat
+function checkIfExamExists($examenvak, $examenjaar, $tijdvak){
+    require(ROOT_PATH . "includes/database_connect.php");
     try {
         $results = $db->prepare("
             SELECT *
-            FROM products
-            WHERE name LIKE ?
-            ORDER BY sku");
-        $results->bindValue(1,"%" . $s . "%");
+            FROM examen
+            WHERE examenvak = ? AND examenjaar = ? AND tijdvak = ?");
+        $results->bindParam(1,$examenvak);
+        $results->bindParam(2,$examenjaar);
+        $results->bindParam(3,$tijdvak);
         $results->execute();
     } catch (Exception $e) {
-        echo "Data could not be retrieved from the database.";
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
         exit;
     }
 
-    $matches = $results->fetchAll(PDO::FETCH_ASSOC);
+    $match = $results->fetch(PDO::FETCH_ASSOC);
+    
+    if($match == ""){
+ 
+        return false;
+    } else {
+        return $match;
+    }
+}
 
-    return $matches;
+//examen toevoegen
+function addExam($gegevens){
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {
+        $stmt = $db->prepare("
+            INSERT 
+            INTO examen (
+                examenvak, 
+                examenjaar, 
+                tijdvak, 
+                nterm, 
+                niveau
+            ) 
+            VALUES (?, ?, ?, ?, ?) ");
+        $stmt->execute($gegevens);
+        $_SESSION['message-success'] = "Examen toegevoegd";
+    } catch (Exception $e){
+        $_SESSION['message'] = "Examen kon niet worden toegevoegd.";
+        exit;
+    }   
+}
+
+//checken of examenvraag bestaat
+function checkIfExamQuestionExists(){
+
+}
+
+//examenvraag toevoegen
+function addExamQuestion(){
+
 }
