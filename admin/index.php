@@ -8,7 +8,7 @@ session_start();
 
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
-	if(!checkRole($_SESSION['gebruiker_id']) == 3){
+	if(checkRole($_SESSION['gebruiker_id']) != 3){
                     	header('Location: '  . BASE_URL . 'dashboard/');
                     	exit;
                     }
