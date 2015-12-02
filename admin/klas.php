@@ -27,7 +27,14 @@
 					<img src="../images/dashboard/maleicon.png" alt="headicon">
 				</div>
 				<div class="username">
-					<h3><?php $data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
+					<h3><?php if(isset($_SESSION['gebruiker_id'])) {
+										$data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." "
+							  					.$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
+							  			<?php	} else {
+							  				echo "Gebruiker";
+							  			}?>
+
+
 				</div>
 				<div class="settings">
 					<img src="../images/dashboard/settings.png" alt="settings">

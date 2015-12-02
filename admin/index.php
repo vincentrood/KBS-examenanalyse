@@ -6,15 +6,16 @@ require_once('/../includes/admin_functions.php');
 
 session_start();
 
-//Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
-if (isset($_SESSION['gebruiker_id'])) {
-	if(checkRole($_SESSION['gebruiker_id']) != 3){
+if (!isset($_SESSION['gebruiker_id'])) {
+	$_SESSION['message'] = 'Je bent niet ingelogd.';
+	header('Location: ' . BASE_URL);
+}
+//checken of gebruiker misschien admin in 
+if(checkRole($_SESSION['gebruiker_id']) != 3){
                     	header('Location: '  . BASE_URL . 'dashboard/');
                     	exit;
                     }
-          }
-
-
+//checken of sessie verlopen is           
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();

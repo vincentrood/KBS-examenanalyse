@@ -12,13 +12,13 @@ function generate_random_password() {
 }
 
 
-function createTempPasswordMail($gegevens,$generated_password) {
+function createTempPasswordMail($gegevens) {
         $mail_content = array(
-            "address" => $gegevens[3],
+            "address" => $gegevens["emailadres"],
             "name"    => "",
             "subject" => "Registratie",
-            "body"    => "Beste " . $gegevens[0] . " " . (empty($gegevens[1]) ? $gegevens[1]: $gegevens[1] . ' ') . $gegevens[2] . ",<br>" . 
-            "<br>Hierbij verzend ik het tijdelijke wachtwoord: " . $generated_password . "<br>Log in op de site om een wachtwoord in te stellen",
+            "body"    => "Beste " . $gegevens["voornaam"] . " " . (empty($gegevens["tussenvoegsel"]) ? $gegevens["tussenvoegsel"]: $gegevens["tussenvoegsel"] . ' ') . $gegevens["achternaam"] . ",<br>" . 
+            "<br>Hierbij verzend ik het tijdelijke wachtwoord: " . $gegevens["generated_password"] . "<br>Log in op de site om een wachtwoord in te stellen",
             "altbody" => "wachtwoordregistratie",
         );
         return $mail_content;
@@ -27,7 +27,7 @@ function createTempPasswordMail($gegevens,$generated_password) {
 //wachtwoord mailen naar gebruiker
 function sendMail($mail_content) {
 
-	require_once('/../config/mail_config.php');
+	require('/../config/mail_config.php');
 
 	$mail->addAddress($mail_content["address"], $mail_content["name"]);
 	$mail->Subject = $mail_content["subject"];
@@ -38,18 +38,6 @@ function sendMail($mail_content) {
 		$_SESSION['message'] = 'Mailer Error: ' . $mail->ErrorInfo;
 	}
 }
-
-function passwordVerifyMail($gegevens,$generated_password) {
-        $mail_content = array(
-            "address" => $gegevens[3],
-            "name"    => "",
-            "subject" => "Registratie",
-            "body"    => "Beste " . $gegevens[0] . " " . (empty($gegevens[1]) ? $gegevens[1]: $gegevens[1] . ' ') . $gegevens[2] . ",<br>" . 
-            "<br>Hierbij verzend ik het tijdelijke wachtwoord: " . $generated_password . "<br>Log in op de site om een wachtwoord in te stellen",
-            "altbody" => "wachtwoordregistratie",
-        );
-        return $mail_content;
-    } 
 
 
 //body staat nu nog localhost voor de base_url voor lokaal gebruik
