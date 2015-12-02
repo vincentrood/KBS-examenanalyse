@@ -14,7 +14,7 @@
 	define("DB_HOST","localhost");
 	define("DB_NAME","examenanalyse");
 	define("DB_USER","root"); 
-	define("DB_PASS","root");
+	define("DB_PASS","");
 
 	//tijd voordat sessie verloopt
 	define("SESSION_TIME", 10 * 60);	

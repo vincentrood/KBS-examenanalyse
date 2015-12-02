@@ -12,8 +12,8 @@ $mail->SMTPAuth = true;
 $mail->Host = 'smtp.gmail.com';
 $mail->Username = 'kbswindesheim@gmail.com';
 $mail->Password = 'windesheim';
-$mail->SMTPSecure = 'ssl';
-$mail->Port = 465;
+$mail->SMTPSecure = 'tls';
+$mail->Port = 587;
 
 $mail->From = 'kbswindesheim@gmail.com';
 $mail->FromName = 'Sjaak van Lenten';
