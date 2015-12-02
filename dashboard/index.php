@@ -90,7 +90,17 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 						Score
 					</li>
 				</a>
-			</ul>
+				<a href="#" class="menulink itembottom">
+					<li class="menuitem">
+						Settings
+					</li>
+				</a>
+				<a href="../includes/logout.php" class="menulink itembottom">
+					<li class="menuitem">
+						Uitloggen
+					</li>
+				</a>
+			</ul>	
 		</div>
 		<div class="contentblock">
 			<div class="content">

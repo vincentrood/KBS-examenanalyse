@@ -133,19 +133,75 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 						Score
 					</li>
 				</a>
+				<a href="#" class="menulink itembottom">
+					<li class="menuitem">
+						Settings
+					</li>
+				</a>
+				<a href="#" class="menulink itembottom">
+					<li class="menuitem">
+						Uitloggen
+					</li>
+				</a>
 			</ul>
 		</div>
 		<div class="contentblock">
 			<div class="content">
+				<div class="formulier">
 				<h1>Voeg een examen toe</h1>
-				<form action="" method="POST">
-		  			Vak <input type="text" name="vak"><br>
-		  			Jaar <input type="text" name="jaar"><br>
-		  			Tijdvak <input type="text" name="tijdvak"><br>
-		  			nTerm <input type="text" name="nterm"><br>
-		  			Niveau <input type="text" name="niveau"><br>
+				<form action="" method="POST" >
+		  			Vak
+					<select name="vak">
+					<option  value="Nederlands">Nederlands</option>
+					<option  value="Engels">Engels</option>
+					</select><br>
+					
+		  			Jaar 
+					<input type="number" name="jaar" value="<?php echo date("Y"); ?>"><br>
+					
+					
+		  			Tijdvak 
+					<select name="tijdvak">
+					<option  value="1">1</option>
+					<option  value="2">2</option>
+					</select><br>
+					
+		  			<p>nTerm</p> 
+					<select name="nterm">
+					<option  value="2.0">2.0</option>
+					<option  value="1.9">1.9</option>
+					<option  value="1.8">1.8</option>
+					<option  value="1.7">1.7</option>
+					<option  value="1.6">1.6</option>
+					<option  value="1.5">1.5</option>
+					<option  value="1.4">1.4</option>
+					<option  value="1.3">1.3</option>
+					<option  value="1.2">1.2</option>
+					<option  value="1.1">1.1</option>
+					<option selected value="1.0">1.0</option>
+					<option  value="0.9">0.9</option>
+					<option  value="0.8">0.8</option>
+					<option  value="0.7">0.7</option>
+					<option  value="0.6">0.6</option>
+					<option  value="0.5">0.5</option>
+					<option  value="0.4">0.4</option>
+					<option  value="0.3">0.3</option>
+					<option  value="0.2">0.2</option>
+					<option  value="0.1">0.1</option>
+					<option  value="0.0">0.0</option>
+					</select><br>
+					
+		  			Niveau <select name="niveau">
+					<option  value="Havo">Havo</option>
+					<option  value="Vwo">Vwo</option>
+					</select><br>
+					
 		  			<input type="submit" name="submit_examen" value="Voeg toe">
 				</form>
+				
+				
+				
+				</div>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
