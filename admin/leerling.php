@@ -1,4 +1,70 @@
+<?php
+
+// de admin pagina, dit wordt natuurlijk nog uitgebreid.
+require_once('/../config/config.php');
+require_once(ROOT_PATH . "includes/init.php");
+require_once(ROOT_PATH . 'includes/admin_functions.php');
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    //****************  LEERLING TOEVOEGEN ******************//
+
+    if(isset($_POST['submit_leerling'])) {
+        if (isset($_POST['voornaam'], $_POST['achternaam'], $_POST['leerling_id'], $_POST['emailadres'], $_POST['klas'])) {
+            //checken of er geen lege waarden zijn ingevoerd
+            if ($_POST['voornaam'] == "" OR $_POST['achternaam'] == "" OR $_POST['leerling_id'] == "" OR $_POST['emailadres'] == "" OR $_POST['klas'] == "") {
+                echo "Je moet alle gegevens invullen!";
+            } 
+            else {
+                // overbodige ingevoerde spaties weghalen met functie trim
+                $voornaam = trim($_POST['voornaam']);
+                $achternaam = trim($_POST['achternaam']);
+                $tussenvoegsel = $_POST['tussenvoegsel'];//tussenvoegsel mag spatie bevatten
+                $leerling_id = trim($_POST['leerling_id']);
+                $emailadres = trim($_POST['emailadres']);
+                $klas = trim($_POST['klas']);
+                $role = 1; // is leerling
+                $account_activated = 0; //account is nog niet geactiveerd, dit wordt pas gedaan als gebruiker eerste keer inlogt.
+                $generated_password = generate_random_password();
+                $wachtwoord = password_hash($generated_password, PASSWORD_BCRYPT);
+                $email_code = md5($voornaam + microtime());
+                //returned $generated_password
+
+                $gegevens = [ 
+                    $voornaam,
+                    $tussenvoegsel,
+                    $achternaam,
+                    $emailadres,
+                    $email_code,
+                    $wachtwoord,
+                    $account_activated,
+                    $role
+                ];
+
+                //checken of email en student_id uniek zijn
+                if(checkIfUserExists($emailadres) === FALSE){
+                    //email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
+                    // gegevens inserten
+                    addUser($gegevens);
+                    addStudent($gegevens[3], $leerling_id, $klas);
+                    //nog niet af!!
+                    //wachtwoord mailen naar gebruiker
+                   	$mail_content = createTempPasswordMail($gegevens,$generated_password);
+                    sendMail($mail_content);
+                } else {
+                    //email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
+                  echo "Email adres is al in gebruik";
+                }
+            }
+        }
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
+
 <html>
 	<head>
 		<title>Examen Analyse</title>
@@ -74,7 +140,15 @@
 		<div class="contentblock">
 			<div class="content">
 				<h2>Voeg Leerling Toe</h2>
-				
+			        <form action="" method="POST">
+			            Voornaam        <input type="text" name="voornaam"><br>
+			            Tussenvoegsel   <input type="text" name="tussenvoegsel"><br>
+			            Achternaam      <input type="text" name="achternaam"><br>
+			            leerling_id     <input type="text" name="leerling_id"><br>
+			            Emailadres      <input type="email" name="emailadres"><br>
+			            Klas            <input type="text"  name="klas"><br>
+			            <input type="submit" name="submit_leerling" value="Voeg toe">
+			        </form>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
