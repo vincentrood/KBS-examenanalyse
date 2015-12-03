@@ -1,7 +1,12 @@
 <?php 
 require_once("includes/init.php");
 session_start();
-
+/*
+$wachtwoord = 'vincent';
+$wachtwoord = password_hash($wachtwoord, PASSWORD_BCRYPT);
+echo $wachtwoord;
+exit;
+*/
 //Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
 if (isset($_SESSION['gebruiker_id'])) {
 	if(checkRole($_SESSION['gebruiker_id']) == 3){
@@ -54,10 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            	$_SESSION['gebruiker_id'] = $user_data["gebruiker_id"];
 	                $_SESSION['timeout'] = time();
 	                if(checkRole($_SESSION['gebruiker_id']) == 3){
+	                	$_SESSION['message-success'] = 'U bent nu ingelogd';
 	                	header('Location: '  . BASE_URL . 'admin/');
 	                	exit;
 	                }
 	                else {
+	                	$_SESSION['message-success'] = 'U bent nu ingelogd';
 	                    header('Location: '  . BASE_URL . 'dashboard/');
 	                    exit;
 	                }
