@@ -7,7 +7,7 @@ $(document).ready(function() {
 	});
 });
 
-//functie voor het toevoegen van rijen op de examen toevoeg pagina.
+//functie voor het toevoegen/weghalen van rijen op de examen toevoeg pagina.
 
 function deleteRow(row)
 {
