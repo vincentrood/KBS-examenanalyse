@@ -199,7 +199,12 @@ h3 {
 
 }
 
-
+input {
+	color:black;
+}
+.content{
+padding:10px;
+}
 
 
 
@@ -404,14 +409,9 @@ h3 {
 .alert-danger .alert-link {
 	color: #843534
 }
+}
 
 
-input {
-	color:black;
-}
-.content{
-padding:10px;
-}
 
 h1 {
     margin-top: 0px;

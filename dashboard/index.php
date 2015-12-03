@@ -38,6 +38,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="stickymenu">
 			<div class="titlemenu">
 				<div class="logoimg">
@@ -107,6 +108,8 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 				<h1>INFORMATIE</h1>
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
 
