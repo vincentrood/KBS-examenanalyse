@@ -6,5 +6,5 @@ require_once(ROOT_PATH . "includes/init.php");
 session_start();
 session_destroy();
 session_start();
-$_SESSION['message'] = 'Je bent nu uitgelogd.';
+$_SESSION['message-success'] = 'Je bent nu uitgelogd.';
 header("Location: " . BASE_URL);

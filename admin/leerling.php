@@ -175,13 +175,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="content">
 				<h2>Voeg Leerling Toe</h2>
 		        <form action="" method="POST">
-		        	<table class="table table-striped">
+		        	<table class="table table-condensed table-bordered">
 					    <thead>
 					      <tr>
 					        <th>Voornaam</th>
 					        <th>Tussenvoegsel</th>
 					        <th>Achternaam</th>
-					        <th>leerling_id</th>
+					        <th>leerlingnummer</th>
 					        <th>Emailadres</th>
 					        <th>Klas</th>
 					      </tr>
