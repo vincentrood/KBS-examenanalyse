@@ -10,8 +10,8 @@ function addUser($gegevens) {
     require(ROOT_PATH . "includes/database_connect.php");
 
     //checkt of tussenvoegsel leeg is gelaten, zoja dan wordt NULL ingevoerd.
-    if($gegevens[1] == ""){
-        $gegevens[1] = NULL;
+    if($gegevens["tussenvoegsel"] == ""){
+        $gegevens["tussenvoegsel"] = NULL;
     }
 
     try {
@@ -27,8 +27,17 @@ function addUser($gegevens) {
                 account_activated, 
                 role
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?) ");
-        $stmt->execute($gegevens);
+            VALUES (:voornaam, :tussenvoegsel, :achternaam, :emailadres, :email_code, :wachtwoord, :account_activated, :role) ");
+        $stmt->execute(array(
+                            ':voornaam' => $gegevens["voornaam"], 
+                            ':tussenvoegsel' => $gegevens["tussenvoegsel"],
+                            ':achternaam' => $gegevens["achternaam"],
+                            ':emailadres' => $gegevens["emailadres"],
+                            ':email_code' => $gegevens["email_code"],
+                            ':wachtwoord' => $gegevens["wachtwoord"],
+                            ':account_activated' => $gegevens["account_activated"],
+                            ':role' => $gegevens["role"],
+                        ));
     } catch (Exception $e){
         $_SESSION['message'] = "Gebruiker kon niet worden toegevoegd.";
         exit;
@@ -284,12 +293,9 @@ function addStudent($emailadres, $leerling_id, $klas){
         $addLeerling_Id->bindParam(2,$leerling_id);
         $addLeerling_Id->bindParam(3,$klas_id);
         $addLeerling_Id->execute();
-        echo "Leerling is toegevoegd!";
+        $_SESSION['message-success'] = "Leerling is toegevoegd!";
     } catch (Exception $e) {
         echo $error_message = "Leerling kon niet worden toegevoegd aan de database.";
         exit;
     }
-
-
-
 }

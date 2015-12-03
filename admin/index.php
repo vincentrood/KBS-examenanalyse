@@ -6,15 +6,16 @@ require_once('/../includes/admin_functions.php');
 
 session_start();
 
-//Als gebruiker al is ingelogd , weer terugsturen naar het dashboard
-if (isset($_SESSION['gebruiker_id'])) {
-	if(checkRole($_SESSION['gebruiker_id']) != 3){
+if (!isset($_SESSION['gebruiker_id'])) {
+	$_SESSION['message'] = 'Je bent niet ingelogd.';
+	header('Location: ' . BASE_URL);
+}
+//checken of gebruiker misschien admin in 
+if(checkRole($_SESSION['gebruiker_id']) != 3){
                     	header('Location: '  . BASE_URL . 'dashboard/');
                     	exit;
                     }
-          }
-
-
+//checken of sessie verlopen is           
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();
@@ -114,8 +115,8 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
 				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
 				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-		<a href="#">Klas toevoegen</a>
-		<a href="#">Examens toevoegen</a>
+				<a href="#">Klas toevoegen</a>
+				<a href="<?php echo BASE_URL; ?>admin/examentoevoegen.php">Eamen(s) toevoegen</a>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>

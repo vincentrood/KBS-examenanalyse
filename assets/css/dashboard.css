@@ -405,6 +405,10 @@ h3 {
 	color: #843534
 }
 
+
+input {
+	color:black;
+}
 .content{
 padding:10px;
 }
@@ -413,4 +417,4 @@ h1 {
     margin-top: 0px;
 }
 
-}
+
