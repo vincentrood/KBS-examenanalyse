@@ -130,14 +130,6 @@ function checkIfUserExists($email){
 }
 
 
- 
-
-
-//admin toevoegen
-function addAdmin(){
-
-}
-
 
 
 
@@ -299,3 +291,57 @@ function addStudent($emailadres, $leerling_id, $klas){
         exit;
     }
 }
+
+function getKlassen() {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {   
+        $stmt = $db->prepare("
+            SELECT klas,examenjaar,docent_afk
+            FROM klas
+            ");
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        exit;
+    }
+    $results = $stmt->fetchall(PDO::FETCH_ASSOC);
+    
+    return $results;
+}
+
+function getLeerlingenKlas($klas) {
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {   
+        $stmt = $db->prepare("
+            SELECT klas_id
+            FROM klas
+            WHERE klas = ?
+            ");
+        $stmt->bindParam(1,$klas);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        exit;
+    }
+    $klas = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    try {   
+        $stmt = $db->prepare("
+            SELECT L.leerling_id,G.voornaam,G.tussenvoegsel,G.achternaam,G.emailadres
+            FROM leerling L
+            INNER JOIN gebruiker G
+            ON L.gebruiker_id=G.gebruiker_id
+            WHERE L.klas_id = ?
+            ");
+        $stmt->bindParam(1,$klas["klas_id"]);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        exit;
+    }   
+
+    $results = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $results;
+}
+
