@@ -6,8 +6,8 @@
 
 
 	//URL constanten
-	define("BASE_URL","/kbs/");
-	define("ROOT_PATH",$_SERVER["DOCUMENT_ROOT"] . "/kbs/");
+	define("BASE_URL","/");
+	define("ROOT_PATH",$_SERVER["DOCUMENT_ROOT"] . "/");
 
 
 	//database connectie constanten
