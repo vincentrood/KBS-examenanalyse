@@ -38,25 +38,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					//returned $generated_password
 
 					$gegevens = [ 
-						$voornaam,
-						$tussenvoegsel,
-						$achternaam,
-						$emailadres,
-						$email_code,
-						$wachtwoord,
-						$account_activated,
-						$role
+						"voornaam" => $voornaam,
+						"tussenvoegsel" => $tussenvoegsel,
+						"achternaam" => $achternaam,
+						"emailadres" => $emailadres,
+						"email_code" => $email_code,
+						"generated_password" => $generated_password,
+						"wachtwoord" => $wachtwoord,
+						"account_activated" => $account_activated,
+						"role" => $role,
+						"docent_afkorting" => $docent_afkorting,
 					];
 
 					//checken of email en afkorting uniek zijn
-					if(checkIfUserExists($emailadres) === FALSE){
+					if(checkIfUserExists($gegevens["emailadres"]) === FALSE){
 						//email adres niet in gebruik, dus gebruiker kan worden toegevoegd.
 						// gegevens inserten
 						addUser($gegevens);
-						addTeacher($gegevens[3], $docent_afkorting);
+						addTeacher($gegevens["emailadres"], $gegevens["docent_afkorting"]);
 						//nog niet af!!
 						//wachtwoord mailen naar gebruiker
-						$mail_content = createTempPasswordMail($gegevens,$generated_password);
+						$mail_content = createTempPasswordMail($gegevens);
 						sendMail($mail_content);
 					} else {
 						//email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
