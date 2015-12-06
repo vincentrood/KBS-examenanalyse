@@ -1,18 +1,17 @@
 <?php
-// de admin pagina, dit wordt natuurlijk nog uitgebreid.
-require_once("/../includes/init.php");
-require_once('/../includes/admin_functions.php');
+require_once('/../config/config.php');
+require_once(ROOT_PATH . "includes/init.php");
+
 session_start();
+
 if (!isset($_SESSION['gebruiker_id'])) {
 	$_SESSION['message'] = 'Je bent niet ingelogd.';
 	header('Location: ' . BASE_URL);
 }
-//checken of gebruiker misschien admin in 
-if(checkRole($_SESSION['gebruiker_id']) != 3){
-                    	header('Location: '  . BASE_URL . 'dashboard/');
+if(checkRole($_SESSION['gebruiker_id']) == 3){
+                    	header('Location: '  . BASE_URL . 'admin/');
                     	exit;
                     }
-//checken of sessie verlopen is           
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();
@@ -24,6 +23,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 	$_SESSION['timeout'] = time();
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php");?>
@@ -37,22 +37,17 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
+						Examen
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Klas toevoegen
+						Resultaten
 					</li>
 				</a>
 				<a href="#" class="menulink">
 					<li class="menuitem">
-						Examens toevoegen
+						Score
 					</li>
 				</a>
 				<a href="#" class="menulink itembottom">
@@ -65,17 +60,13 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 						Uitloggen
 					</li>
 				</a>
-			</ul>
+			</ul>	
 		</div>
 		<div class="contentblock">
 			<div class="content">
-				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-		<a href="#">Klas toevoegen</a>
-		<a href="#">Examens toevoegen</a>
+				<h1>INFORMATIE</h1>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</body>
 </html>
+

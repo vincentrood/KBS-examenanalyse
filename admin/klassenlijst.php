@@ -2,31 +2,24 @@
 // de admin pagina, dit wordt natuurlijk nog uitgebreid.
 require_once("/../includes/init.php");
 require_once('/../includes/admin_functions.php');
-session_start();
-if (!isset($_SESSION['gebruiker_id'])) {
-	$_SESSION['message'] = 'Je bent niet ingelogd.';
-	header('Location: ' . BASE_URL);
-}
-//checken of gebruiker misschien admin in 
-if(checkRole($_SESSION['gebruiker_id']) != 3){
-                    	header('Location: '  . BASE_URL . 'dashboard/');
-                    	exit;
-                    }
-//checken of sessie verlopen is           
-if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
-	// sessie destroyen als sessie verlopen is.
-	session_destroy();
-	session_start();
-	$_SESSION['message'] = 'Sessie is verlopen.';
-	header('Location: ' . BASE_URL);
-} else {
-	//als sessie niet verlopen is sessie verlengen
-	$_SESSION['timeout'] = time();
-}
+
+$klassenlijst = getKlassen();
+//echo "<pre>";
+//var_dump($klassenlijst);
+//exit;
+
+
+
 ?>
+
+
+
+
+
 <!DOCTYPE html>
+
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php");?>
+	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 	<body>
 		<div class="sidemenu">
 			<ul>
@@ -69,11 +62,18 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		</div>
 		<div class="contentblock">
 			<div class="content">
-				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-		<a href="#">Klas toevoegen</a>
-		<a href="#">Examens toevoegen</a>
+				<table class="table table-condensed table-bordered">
+				    <thead>
+				      <tr>
+				        <th>Klas</th>
+				        <th>Examenjaar</th>
+				        <th>Docent</th>
+				      </tr>
+				    </thead>
+				    <tbody>					    	
+				    	<?php include(ROOT_PATH . "includes/partials/klassenlijst.html.php") ?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
