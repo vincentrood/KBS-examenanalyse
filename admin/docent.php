@@ -1,11 +1,10 @@
 <?php
 
-// de admin pagina, dit wordt natuurlijk nog uitgebreid.
-require_once('/../config/config.php');
-require_once(ROOT_PATH . "includes/init.php");
-require_once(ROOT_PATH . 'includes/admin_functions.php');
+require_once("/../includes/init.php");
 
-session_start();
+checkSession();
+checkIfAdmin();
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
@@ -74,46 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php");?>
-	<body>
-		<div class="sidemenu">
-			<ul>
-				<a href="/" class="menulink">
-					<li class="menuheading">
-						Dashboard
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Klas toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Examens toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink itembottom">
-					<li class="menuitem">
-						Settings
-					</li>
-				</a>
-				<a href="../includes/logout.php" class="menulink itembottom">
-					<li class="menuitem">
-						Uitloggen
-					</li>
-				</a>
-			</ul>
-		</div>
+	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
 		<div class="contentblock">
 			<div class="content">
 				<h2>Voeg leraar toe</h2>
