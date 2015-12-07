@@ -1,3 +1,10 @@
+	<?php
+
+	$data = getUserData($_SESSION['gebruiker_id']);
+	$gebruikersnaam = $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];
+
+	?>
+
 	<head>
 		<title>Examen Analyse</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,10 +31,10 @@
 					<img src="../images/dashboard/maleicon.png" alt="headicon">
 				</div>
 				<div class="username">
-					<h3><?php $data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
+					<h3><?php echo $gebruikersnaam ?></h3>
 				</div>
 				<div class="settings">
-					<img src="../images/dashboard/settings.png" alt="settings">
+					<img src="../images/dashboard/settings.png" id="settings-img" alt="settings">
 					<ul class="submenu">
 						<li>
 							<a href="#" class="submenuitem">Settings</a>
@@ -39,4 +46,3 @@
 				</div>
 			</div>
 		</div>
-	</body>

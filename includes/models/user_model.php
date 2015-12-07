@@ -129,10 +129,6 @@ function checkIfUserExists($email){
     }
 }
 
-
-
-
-
 //nog niet af
 function getUserData($user) {
 
@@ -150,6 +146,7 @@ function getUserData($user) {
     }
 
     $match = $results->fetch(PDO::FETCH_ASSOC);
+
     return $match;
 }
 

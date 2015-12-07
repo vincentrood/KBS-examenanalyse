@@ -31,3 +31,33 @@ function passTest($pass, $pass_confirm) {
     }
 }
 
+function checkSession() {
+
+    session_start();
+    if (!isset($_SESSION['gebruiker_id'])) {
+        $_SESSION['message'] = 'Toegang geweigerd.';
+        header('Location: ' . BASE_URL);
+        exit;
+    }
+
+    //checken of sessie verlopen is           
+    if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
+        // sessie destroyen als sessie verlopen is.
+        session_destroy();
+        session_start();
+        $_SESSION['message'] = 'Sessie is verlopen.';
+        header('Location: ' . BASE_URL);
+        exit;
+    } else {
+        //als sessie niet verlopen is sessie verlengen
+        $_SESSION['timeout'] = time();
+    }
+}
+
+function checkIfAdmin() {
+    if(checkRole($_SESSION['gebruiker_id']) != 3) {
+        header('Location: '  . BASE_URL . 'dashboard/');
+        exit;
+    }
+}
+
