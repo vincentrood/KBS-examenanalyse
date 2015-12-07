@@ -1,10 +1,8 @@
 <?php
+require_once("/../includes/init.php");
 
-// de admin pagina, dit wordt natuurlijk nog uitgebreid.
-require_once('/../config/config.php');
-require_once(ROOT_PATH . "includes/init.php");
-require_once(ROOT_PATH . 'includes/admin_functions.php');
-
+checkSession();
+checkIfAdmin();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -85,93 +83,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 
 <html>
-	<head>
-		<title>Examen Analyse</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="theme-color" content="#1BBC9B">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
-		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	</head>
-	<body>
-		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
-		<div class="stickymenu">
-			<div class="titlemenu">
-				<div class="logoimg">
-					<img src="../images/dashboard/logo_fruytier.png" alt="logo_fruytier">
-					<img src="../images/dashboard/logo.png" alt="logo">
-				</div>
-				<div class="apptitle">
-					<h1>EXAMENANALYSE</h1>
-				</div>
-			</div>
-			<div class="usermenu">
-				<div class="headicon">
-					<img src="../images/dashboard/maleicon.png" alt="headicon">
-				</div>
-				<div class="username">
-					<h3><?php if(isset($_SESSION['gebruiker_id'])) {
-										$data = getUserData($_SESSION['gebruiker_id']);echo $data['voornaam']." "
-							  					.$data['tussenvoegsel']." ".$data['achternaam'];?></h3>
-							  			<?php	} else {
-							  				echo "Gebruiker";
-							  			}?>
-				</div>
-				<div class="settings">
-					<img src="../images/dashboard/settings.png" alt="settings">
-					<ul class="submenu">
-						<li>
-							<a href="#" class="submenuitem">Settings</a>
-						</li>
-						<li>
-							<a href="../includes/logout.php" class="submenuitem">Uitloggen</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="sidemenu">
-			<ul>
-				<a href="/" class="menulink">
-					<li class="menuheading">
-						Dashboard
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Klas toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Examens toevoegen
-					</li>
-				</a>
-			</ul>
-		</div>
+	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
+	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
 		<div class="contentblock">
 			<div class="content">
 				<h2>Voeg Leerling Toe</h2>
 		        <form action="" method="POST">
-		        	<table class="table table-striped">
+		        	<table class="table table-condensed table-bordered">
 					    <thead>
 					      <tr>
 					        <th>Voornaam</th>
 					        <th>Tussenvoegsel</th>
 					        <th>Achternaam</th>
-					        <th>leerling_id</th>
+					        <th>leerlingnummer</th>
 					        <th>Emailadres</th>
 					        <th>Klas</th>
 					      </tr>
@@ -187,14 +111,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			            		</tr>
 						</tbody>
 					</table>
-					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-					
-		        </form>
-		        <button id="add_leerling">add leerling</button>			        
+					<input type ="button" id="add_leerling" onclick="insertLeerlingRow()" value="add leerling"/>
+					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>					
+		        </form>		        			        
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/table_insert.js"></script>
-	</body>
-</html>
+	<?php include(ROOT_PATH . "includes/templates/footer.php") ?>	
