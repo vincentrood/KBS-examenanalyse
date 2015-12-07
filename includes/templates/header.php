@@ -1,56 +1,48 @@
-<?php
+	<?php
 
-//stukken html die zoiezo op elke pagina terugkomen zoals het bovenstuk(header),onderkant(footer) en misschien een menu 
-//aan de zijkant??(sidebar) zodat je deze makkelijk kunt includen op de verschillende paginas.
-//hieronder een voorbeeldje van een header:
+	$data = getUserData($_SESSION['gebruiker_id']);
+	$gebruikersnaam = $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];
 
-/*
-<?php
+	?>
 
-$search_term = "";
-if (isset($_GET["s"])) {
-	$search_term = trim($_GET["s"]);
-	if($search_term != "" ) {
-		require_once(ROOT_PATH . "inc/products.php");
-		$products = get_products_search($search_term);
-	} 
-}
-
-if(isset($_SESSION["item"])) {
-	foreach($_SESSION["item"] as $item) {
-		$cartproducts[] = get_products_cart($item["name"], $item["size"]); 
-	}
-	$_SESSION["productscount"] = strval(count($cartproducts));
-
-}
-?>
-<html>
-<head>
-	<title><?php echo $pageTitle; ?></title>
-	<link rel="stylesheet" href="<?php echo BASE_URL; ?>css/style.css" type="text/css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700" type="text/css">
-	<link rel="shortcut icon" href="<?php echo BASE_URL; ?>favicon.ico">
-</head>
-<body>
-
-	<div class="header">
-
-		<h1 class="branding-title"><a href="<?php echo BASE_URL; ?>">Shirts 4 Mike</a></h1>
-
-			<ul class="nav">
-				<li class="shirts <?php if ($section == "shirts") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>shirts/">Shirts</a></li>
-				<li class="contact <?php if ($section == "contact") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>contact/">Contact</a></li>
-				<li class="cart"><a href="<?php echo BASE_URL; ?>cart/"><?php if(isset($_SESSION["productscount"])) { echo $_SESSION["productscount"]; } else{ echo "0"; } ?></a></li>
-				<li class="search <?php if ($section == "search") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>search/">Search</a></li>
-				<li class="searchbox">			
-					<form method="get" action="<?php echo BASE_URL; ?>shirts/">
-						
-						<input type="text" name="s" value="<?php if(isset($search_term)){ echo htmlspecialchars($search_term); } ?>">
-					</form>
-				</li>
-			</ul>
-		
+	<head>
+		<title>Examen Analyse</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="theme-color" content="#1BBC9B">
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
+		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
+	</head>
+	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
+		<div class="stickymenu">
+			<div class="titlemenu">
+				<div class="logoimg">
+					<img src="../images/dashboard/logo_fruytier.png" alt="logo_fruytier">
+					<img src="../images/dashboard/logo.png" alt="logo">
+				</div>
+				<div class="apptitle">
+					<h1>EXAMENANALYSE</h1>
+				</div>
+			</div>
+			<div class="usermenu">
+				<div class="headicon">
+					<img src="../images/dashboard/maleicon.png" alt="headicon">
+				</div>
+				<div class="username">
+					<h3><?php echo $gebruikersnaam ?></h3>
+				</div>
+				<div class="settings">
+					<img src="../images/dashboard/settings.png" alt="settings">
+					<ul class="submenu">
+						<li>
+							<a href="#" class="submenuitem">Settings</a>
+						</li>
+						<li>
+							<a href="../includes/logout.php" class="submenuitem">Uitloggen</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-
-	<div id="content">
-	*/

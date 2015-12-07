@@ -54,12 +54,65 @@ function addExam($gegevens){
     }   
 }
 
-//checken of examenvraag bestaat
-function checkIfExamQuestionExists(){
+function checkCategorie(){
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {
+        $results = $db->prepare("
+            SELECT *
+            FROM categorie");
+        $results->execute();
+    } catch (Exception $e) {
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
+        exit;
+    }
 
+    $match = $results->fetchAll();
+    return $match;
+}
+function checkCategorie_id($categorie_omschrijving){
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {
+        $results = $db->prepare("
+            SELECT categorie_id
+            FROM categorie
+            WHERE categorieomschrijving = ?");
+        $results->bindParam(1,$categorie_omschrijving);
+        $results->execute();
+    } catch (Exception $e) {
+        $_SESSION['message'] = "Data could not be retrieved from the database.";
+        exit;
+    }
+
+    $match = $results->fetchAll();
+    return $match;
 }
 
-//examenvraag toevoegen
-function addExamQuestion(){
+function addExamQuestion($vraag, $maxscore, $categorie_id, $examen_id){
+    require(ROOT_PATH . "includes/database_connect.php");
+    try {
+
+        $stmt = $db->prepare("
+            INSERT 
+            INTO examenvraag (
+                examen_id, 
+                examenvraag, 
+                maxscore, 
+                categorie_id 
+            ) 
+            VALUES (?, ?, ?, ?); ");
+        $stmt->bindParam(1,$examen_id);
+        $stmt->bindParam(2,$vraag);
+        $stmt->bindParam(3,$maxscore);
+        $stmt->bindParam(4,$categorie_id);
+        $stmt->execute();
+        $_SESSION['message-success'] = "Examen en bijbehorende examenvragen toegevoegd.";
+    } catch (Exception $e){
+        $_SESSION['message'] = "Examenvraag kon niet worden toegevoegd.";
+        exit;
+    }   
+}
+
+//checken of examenvraag bestaat
+function checkIfExamQuestionExists(){
 
 }

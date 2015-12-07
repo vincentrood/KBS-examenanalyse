@@ -9,12 +9,6 @@ if (!isset($_SESSION['gebruiker_id'])) {
 	header('Location: ' . BASE_URL);
 }
 
-if(checkRole($_SESSION['gebruiker_id']) == 3){
-                    	header('Location: '  . BASE_URL . 'admin/');
-                    	exit;
-                    }
-                    
-
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
 	session_destroy();
@@ -38,6 +32,7 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 		<link rel="stylesheet" href="../assets/css/dashboard.css" type="text/css" media="all">
 	</head>
 	<body>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
 		<div class="stickymenu">
 			<div class="titlemenu">
 				<div class="logoimg">
@@ -90,13 +85,25 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 						Score
 					</li>
 				</a>
-			</ul>
+				<a href="#" class="menulink itembottom">
+					<li class="menuitem">
+						Settings
+					</li>
+				</a>
+				<a href="../includes/logout.php" class="menulink itembottom">
+					<li class="menuitem">
+						Uitloggen
+					</li>
+				</a>
+			</ul>	
 		</div>
 		<div class="contentblock">
 			<div class="content">
 				<h1>INFORMATIE</h1>
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
 	</body>
 </html>
 
