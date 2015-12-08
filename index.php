@@ -87,28 +87,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="theme-color" content="#1BBC9B">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" media="all">
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
-		<link rel="stylesheet" href="assets/css/login.css" type="text/css" media="all">
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
-	<body>
+	<body class="alternative-body">
 		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
-		<div class="container">
-			<h1>INLOGGEN</h1>
-			<div class="contact-form">
-				<div class="formulier">
+		<div class="container loginmargin">
+			<div class="row loginmargin">
+				<div class="col-sm-6 col-sm-offset-3 loginblock">
+					<h1><center><b>Examen Analyse</b></center></h1>
 					<form method="post" action="">
-						<input type="text" class="user" name = "user" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gebruikersnaam';}" />
-						<input type="password" class="pass" name = "password" placeholder="Wachtwoord" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Wachtwoord';}" />
-						<input type="submit" value="Inloggen" />
-						<p><a href="wachtwoord_vergeten.php">Wachtwoord vergeten?</a></p>					
+						<input type="text" class="form-control" name="user" placeholder="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"/>
+						<input type="password" class="form-control" name="password" placeholder="Wachtwoord"/>
+						<p class="help-block"><a href="wachtwoord_vergeten.php">Wachtwoord vergeten?</a></p>
+						<input type="submit" class="btn btn-default" value="Inloggen" />
 					</form>
 				</div>
-			</div> 
+			</div>
 		</div>
-		<div class="footer">
-			<p>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</p>
+		<div class="copyrightelement">
+			<center>Copyright &copy; 2015. All Rights Reserved | Design by KBS ICTM1a KPM05</center>
 		</div>
 
 		
