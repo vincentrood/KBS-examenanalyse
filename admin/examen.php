@@ -2,8 +2,6 @@
 require_once("/../includes/init.php");
 require_once('/../includes/admin_functions.php');
 
-session_start();
-
 checkSession();
 checkIfAdmin();
 
