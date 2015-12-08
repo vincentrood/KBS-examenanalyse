@@ -34,7 +34,7 @@
 					<h3><?php echo $gebruikersnaam ?></h3>
 				</div>
 				<div class="settings">
-					<img src="../images/dashboard/settings.png" alt="settings">
+					<img src="../images/dashboard/settings.png" id="settings-img" alt="settings">
 					<ul class="submenu">
 						<li>
 							<a href="#" class="submenuitem">Settings</a>

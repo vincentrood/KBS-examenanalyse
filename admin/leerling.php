@@ -111,14 +111,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			            		</tr>
 						</tbody>
 					</table>
-					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-					
-		        </form>
-		        <button id="add_leerling">add leerling</button>			        
+					<input type ="button" id="add_leerling" onclick="insertLeerlingRow()" value="add leerling"/>
+					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>					
+		        </form>		        			        
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/table_insert.js"></script>
-	</body>
-</html>
+	<?php include(ROOT_PATH . "includes/templates/footer.php") ?>	
