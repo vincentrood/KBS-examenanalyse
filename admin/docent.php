@@ -87,4 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				</form>
 			</div>
 		</div>
-	<?php include(ROOT_PATH . "includes/templates/footer.php") ?>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
+	</body>
+</html>
