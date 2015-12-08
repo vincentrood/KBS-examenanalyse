@@ -13,7 +13,7 @@
 			<h1>Helaas... </h1>
 			<h3>De pagina die je zocht is niet gevonden...</h3>
 			<div style="width:100% !important;"class="contact-form">
-				<object type="application/x-shockwave-flash" name="name" data="images/pacman.swf" width="977" height="500" id="flash-404" style="visibility: visible;" title="Adobe Flash Player"><param name="quality" value="high"><param name="wmode" value="transparent"></object>
+				<object "type="application/x-shockwave-flash" name="name" data="images/pacman.swf" width="977" height="500" id="flash-404" style="visibility: visible;" title="Adobe Flash Player"><param name="quality" value="high"><param name="wmode" value="transparent"></object>
 
 			</div> 
 		</div>
