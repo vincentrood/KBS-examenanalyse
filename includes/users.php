@@ -46,11 +46,17 @@ function checkSession() {
         session_destroy();
         session_start();
         $_SESSION['message'] = 'Sessie is verlopen.';
+        $_SESSION['lastpage'] = $_SERVER['REQUEST_URI'];
         header('Location: ' . BASE_URL);
         exit;
     } else {
         //als sessie niet verlopen is sessie verlengen
         $_SESSION['timeout'] = time();
+        if(isset($_SESSION['lastpage'])){
+            header('Location: ' . $_SESSION['lastpage']);
+            unset($_SESSION['lastpage']);
+            exit;
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
 
 require_once("/../includes/init.php");
-
+$pagename = "docenten";
 checkSession();
 checkIfAdmin();
 
@@ -72,19 +72,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php");?>
-	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
-		<div class="contentblock">
-			<div class="content">
-				<h2>Voeg leraar toe</h2>
-				<form action="" method="POST">
-		  			Voornaam <input type="text" name="voornaam"><br>
-		  			Tussenvoegsel <input type="text" name="tussenvoegsel"><br>
-		  			Achternaam <input type="text" name="achternaam"><br>
-		  			Afkorting <input type="text" name="afkorting"><br>
-		  			Emailadres <input type="text" name="emailadres"><br>
-		  			<input type="submit" name="submit_docent" value="Voeg toe">
-				</form>
+	<body>
+		<?php include(ROOT_PATH . "includes/templates/header.php");?>
+		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+		<div class="wrapper">
+			<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php"); ?>
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<div class="contentblock">
+						<div class="content">
+							<h2>Voeg leraar toe</h2>
+							<form action="" method="POST">
+					  			Voornaam <input type="text" name="voornaam"><br>
+					  			Tussenvoegsel <input type="text" name="tussenvoegsel"><br>
+					  			Achternaam <input type="text" name="achternaam"><br>
+					  			Afkorting <input type="text" name="afkorting"><br>
+					  			Emailadres <input type="text" name="emailadres"><br>
+					  			<input type="submit" name="submit_docent" value="Voeg toe">
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
