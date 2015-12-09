@@ -1,8 +1,8 @@
 function insertLeerlingRow() {
-		var $tr = $("tbody tr:last");
-		var $clone = $tr.clone();
-		$clone.find(':text').val('');
-		$tr.after($clone);
+        var $tr = $("tbody tr:last");
+        var $clone = $tr.clone();
+        $clone.find(':text').val('');
+        $tr.after($clone);
 }
 
 //functie voor het toevoegen/weghalen van rijen op de examen toevoeg pagina.

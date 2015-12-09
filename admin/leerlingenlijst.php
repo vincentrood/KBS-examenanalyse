@@ -21,6 +21,7 @@ if(isset($_GET['klas'])) {
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php");?>
     <?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+    <body>
 		<div class="contentblock">
 			<div class="content">
 				<table class="table table-condensed table-bordered">
@@ -42,4 +43,6 @@ if(isset($_GET['klas'])) {
 				</table>
 			</div>
 		</div>
-	<?php include(ROOT_PATH . "includes/templates/footer.php") ?>
+		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
+	</body>
+</html>
