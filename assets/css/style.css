@@ -79,3 +79,19 @@
 .page-wrapper {
 
 }
+
+.form-group {
+	margin: 15px 15px 15px 15px;
+}
+.form-control {
+	margin: 0px;
+}
+
+.panel-default{
+	margin-top: 25px;
+
+}
+
+.panel-heading{
+	font-size: 20px;
+}

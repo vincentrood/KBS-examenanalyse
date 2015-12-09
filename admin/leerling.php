@@ -92,34 +92,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="container-fluid">
 					<div class="contentblock">
 						<div class="content">
-							<h2>Voeg Leerling Toe</h2>
-					        <form action="" method="POST">
-					        	<table class="table table-condensed table-bordered">
-								    <thead>
-								      <tr>
-								        <th>Voornaam</th>
-								        <th>Tussenvoegsel</th>
-								        <th>Achternaam</th>
-								        <th>leerlingnummer</th>
-								        <th>Emailadres</th>
-								        <th>Klas</th>
-								      </tr>
-								    </thead>
-								    <tbody>					    	
-									    	<tr class="inputrow">
-									            <td><input type="text" name="voornaam[]"></td>
-									            <td><input type="text" name="tussenvoegsel[]"></td>
-									            <td><input type="text" name="achternaam[]"></td>
-									            <td><input type="text" name="leerling_id[]"></td>
-									            <td><input type="text" name="emailadres[]"></td>
-									            <td><input type="text" name="klas[]"></td>	
-						            		</tr>
-									</tbody>
-								</table>
-								<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-								
-					        </form>
-					        <button id="add_leerling">add leerling</button>			        
+							<div class="panel panel-default">
+								<!-- Default panel contents -->
+								<div class="panel-heading">Leerling Toevoegen</div>
+							        <form action="" method="POST">
+							        	<div class="form-group">
+							        	<table class="table table-condensed table-bordered">
+										    <thead>
+										      <tr>
+										        <th>Voornaam</th>
+										        <th>Tussenvoegsel</th>
+										        <th>Achternaam</th>
+										        <th>Leerlingnummer</th>
+										        <th>Emailadres</th>
+										        <th>Klas</th>
+										      </tr>
+										    </thead>
+										    <tbody>					    	
+											    	<tr class="inputrow">
+											            <td><input type="text" class="form-control" name="voornaam[]"></td>
+											            <td><input type="text" class="form-control" name="tussenvoegsel[]"></td>
+											            <td><input type="text" class="form-control" name="achternaam[]"></td>
+											            <td><input type="text" class="form-control" name="leerling_id[]"></td>
+											            <td><input type="text" class="form-control" name="emailadres[]"></td>
+											            <td><input type="text" class="form-control" name="klas[]"></td>	
+								            		</tr>
+											</tbody>
+										</table>
+										<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow()" value="Rij toevoegen"/>
+										<input type="submit" class="btn btn-default" name="submit_leerling" value="Opslaan en verzenden">
+									</div>
+							        </form>
+							    </div>
+					        </div>			        
 						</div>
 					</div>
 				</div>
