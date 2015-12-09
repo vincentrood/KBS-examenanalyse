@@ -2,21 +2,23 @@
 // de admin pagina, dit wordt natuurlijk nog uitgebreid.
 require_once("/../includes/init.php");
 
+$pagename = "dashboard";
 checkSession();
 checkIfAdmin();
 
 ?>
 <!DOCTYPE html>
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php");?>
-	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
-		<div class="contentblock">
-			<div class="content">
-				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-				<a href="#">Klas toevoegen</a>
-				<a href="#">Examens toevoegen</a>
+	<body>
+		<?php include(ROOT_PATH . "includes/templates/header.php");?>
+		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+		<div class="wrapper">
+			<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php"); ?>
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<h1>hoi</h1>
+				</div>
 			</div>
 		</div>
-	<?php include(ROOT_PATH . "includes/templates/footer.php") ?>
+	</body>
+</html>
