@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<?php
+
+require_once("/../includes/init.php");
+
+checkSession();
+checkIfAdmin();
+
+?>
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 	<body>

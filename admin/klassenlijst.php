@@ -18,6 +18,7 @@ $klassenlijst = getKlassen();
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+	<body>
 		<div class="contentblock">
 			<div class="content">
 				<table class="table table-condensed table-bordered">

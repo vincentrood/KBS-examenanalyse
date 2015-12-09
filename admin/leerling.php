@@ -85,6 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+	<body>
 		<div class="contentblock">
 			<div class="content">
 				<h2>Voeg Leerling Toe</h2>
