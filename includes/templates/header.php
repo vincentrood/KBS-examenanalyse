@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="all">
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>

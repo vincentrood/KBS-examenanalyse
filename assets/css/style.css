@@ -15,8 +15,9 @@
 }
 .copyrightelement {
 	margin-top: 50px;
+	color: #fff;
 }
-/*---DASHBOARD---*/
+/*---HEADER---*/
 .header {
 	height: 50px;
 	padding-top: 5px;
@@ -31,10 +32,50 @@
 	margin: 7px;
 	margin-left: 20px;
 	float: left;
+	color: #fff;
 }
 .usermenu {
-	background-color: #363636;
+	background-color: #222;
 }
 .usermenu a{
 	float: right;
+}
+/*---PAGE-CONTENT---*/
+.wrapper {
+	padding-left: 225px;
+}
+.sidebar-wrapper {
+	position: fixed;
+	width: 225px;
+	height: 100%;
+	margin-left: -225px;
+	background-color: #222;
+}
+.sidebar-nav li {
+	text-indent: 20px;
+	line-height: 45px;
+	font-size: medium;
+}
+.sidebar-nav li a {
+	display: block;
+	text-decoration: none;
+	color: #999;
+}
+.active-nav {
+	background-color: #333;
+	color: #fff !important;
+	font-size: larger;
+	line-height: 50px;
+}
+.sidebar-nav li a:hover {
+	background-color: #333;
+	color: #fff;
+}
+.settings-nav {
+	position: fixed;
+	bottom: 0px;
+	width: 225px;
+}
+.page-wrapper {
+
 }
