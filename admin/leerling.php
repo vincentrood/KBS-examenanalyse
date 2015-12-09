@@ -1,6 +1,6 @@
 <?php
 require_once("/../includes/init.php");
-$pagename = "leerlingen";
+
 checkSession();
 checkIfAdmin();
 
@@ -83,46 +83,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 
 <html>
-	<body>
-		<?php include(ROOT_PATH . "includes/templates/header.php") ?>
-		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
-		<div class="wrapper">
-			<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php"); ?>
-			<div class="page-wrapper">
-				<div class="container-fluid">
-					<div class="contentblock">
-						<div class="content">
-							<h2>Voeg Leerling Toe</h2>
-					        <form action="" method="POST">
-					        	<table class="table table-condensed table-bordered">
-								    <thead>
-								      <tr>
-								        <th>Voornaam</th>
-								        <th>Tussenvoegsel</th>
-								        <th>Achternaam</th>
-								        <th>leerlingnummer</th>
-								        <th>Emailadres</th>
-								        <th>Klas</th>
-								      </tr>
-								    </thead>
-								    <tbody>					    	
-									    	<tr class="inputrow">
-									            <td><input type="text" name="voornaam[]"></td>
-									            <td><input type="text" name="tussenvoegsel[]"></td>
-									            <td><input type="text" name="achternaam[]"></td>
-									            <td><input type="text" name="leerling_id[]"></td>
-									            <td><input type="text" name="emailadres[]"></td>
-									            <td><input type="text" name="klas[]"></td>	
-						            		</tr>
-									</tbody>
-								</table>
-								<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-								
-					        </form>
-					        <button id="add_leerling">add leerling</button>			        
-						</div>
-					</div>
-				</div>
+	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
+	<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+		<div class="contentblock">
+			<div class="content">
+				<h2>Voeg Leerling Toe</h2>
+		        <form action="" method="POST">
+		        	<table class="table table-condensed table-bordered">
+					    <thead>
+					      <tr>
+					        <th>Voornaam</th>
+					        <th>Tussenvoegsel</th>
+					        <th>Achternaam</th>
+					        <th>leerlingnummer</th>
+					        <th>Emailadres</th>
+					        <th>Klas</th>
+					      </tr>
+					    </thead>
+					    <tbody>					    	
+						    	<tr class="inputrow">
+						            <td><input type="text" name="voornaam[]"></td>
+						            <td><input type="text" name="tussenvoegsel[]"></td>
+						            <td><input type="text" name="achternaam[]"></td>
+						            <td><input type="text" name="leerling_id[]"></td>
+						            <td><input type="text" name="emailadres[]"></td>
+						            <td><input type="text" name="klas[]"></td>	
+			            		</tr>
+						</tbody>
+					</table>
+					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
+					
+		        </form>
+		        <button id="add_leerling">add leerling</button>			        
 			</div>
 		</div>
 		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
