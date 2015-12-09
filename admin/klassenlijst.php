@@ -16,6 +16,7 @@ $klassenlijst = getKlassen();
 <!DOCTYPE html>
 
 <html>
+
 	<body>
 		<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
@@ -39,7 +40,7 @@ $klassenlijst = getKlassen();
 							</table>
 						</div>
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
 		<?php include(ROOT_PATH . "includes/templates/footer.php");?>

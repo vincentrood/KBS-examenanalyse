@@ -1,8 +1,9 @@
 <?php
 require_once("/../includes/init.php");
 require_once('/../includes/admin_functions.php');
+
 $pagename = "examens";
-session_start();
+
 
 checkSession();
 checkIfAdmin();
@@ -442,4 +443,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include(ROOT_PATH . "includes/templates/footer.php");?>
     </body>
 </html>
-
