@@ -64,8 +64,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			                addStudent($leerling_gegevens["emailadres"], $leerling_gegevens["leerling_id"], $leerling_gegevens["klas"]);
 
 			                //wachtwoord mailen naar gebruiker
-			                $mail_content = createTempPasswordMail($leerling_gegevens);
-			                sendMail($mail_content);
+			                //$mail_content = createTempPasswordMail($leerling_gegevens);
+			                //sendMail($mail_content);
 			            } else {
 			                //email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
 			              	$_SESSION['message'] = "Email adres " . $leerling_gegevens['emailadres'] . " is al in gebruik";
@@ -92,34 +92,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="container-fluid">
 					<div class="contentblock">
 						<div class="content">
-							<h2>Voeg Leerling Toe</h2>
-					        <form action="" method="POST">
-					        	<table class="table table-condensed table-bordered">
-								    <thead>
-								      <tr>
-								        <th>Voornaam</th>
-								        <th>Tussenvoegsel</th>
-								        <th>Achternaam</th>
-								        <th>leerlingnummer</th>
-								        <th>Emailadres</th>
-								        <th>Klas</th>
-								      </tr>
-								    </thead>
-								    <tbody>					    	
-									    	<tr class="inputrow">
-									            <td><input type="text" name="voornaam[]"></td>
-									            <td><input type="text" name="tussenvoegsel[]"></td>
-									            <td><input type="text" name="achternaam[]"></td>
-									            <td><input type="text" name="leerling_id[]"></td>
-									            <td><input type="text" name="emailadres[]"></td>
-									            <td><input type="text" name="klas[]"></td>	
-						            		</tr>
-									</tbody>
-								</table>
-								<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-								
-					        </form>
-					        <button id="add_leerling">add leerling</button>			        
+							<div class="panel panel-default">
+								<!-- Default panel contents -->
+								<div class="panel-heading">Leerling Toevoegen</div>
+							        <form action="" method="POST">
+							        	<div class="form-group leerling">
+							        	<table class="table table-condensed table-bordered">
+										    <thead>
+										      <tr>
+										        <th>Voornaam</th>
+										        <th>Tussenvoegsel</th>
+										        <th>Achternaam</th>
+										        <th>Leerlingnummer</th>
+										        <th>Emailadres</th>
+										        <th>Klas</th>
+										      </tr>
+										    </thead>
+										    <tbody>					    	
+											    	<tr class="inputrow">
+											            <td><input type="text" class="form-control leerling" name="voornaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="tussenvoegsel[]"></td>
+											            <td><input type="text" class="form-control leerling" name="achternaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="leerling_id[]"></td>
+											            <td><input type="text" class="form-control leerling" name="emailadres[]"></td>
+											            <td><input type="text" class="form-control leerling" name="klas[]"></td>	
+								            		</tr>
+											</tbody>
+										</table>
+										<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow()" value="Rij toevoegen"/>
+										<input type="submit" class="btn btn-default" name="submit_leerling" value="Opslaan en verzenden">
+									</div>
+							        </form>
+							    </div>
+					        </div>			        
 						</div>
 					</div>
 				</div>
