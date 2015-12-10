@@ -64,8 +64,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			                addStudent($leerling_gegevens["emailadres"], $leerling_gegevens["leerling_id"], $leerling_gegevens["klas"]);
 
 			                //wachtwoord mailen naar gebruiker
-			                $mail_content = createTempPasswordMail($leerling_gegevens);
-			                sendMail($mail_content);
+			                //$mail_content = createTempPasswordMail($leerling_gegevens);
+			                //sendMail($mail_content);
 			            } else {
 			                //email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
 			              	$_SESSION['message'] = "Email adres " . $leerling_gegevens['emailadres'] . " is al in gebruik";
@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 								<!-- Default panel contents -->
 								<div class="panel-heading">Leerling Toevoegen</div>
 							        <form action="" method="POST">
-							        	<div class="form-group">
+							        	<div class="form-group leerling">
 							        	<table class="table table-condensed table-bordered">
 										    <thead>
 										      <tr>
@@ -110,12 +110,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 										    </thead>
 										    <tbody>					    	
 											    	<tr class="inputrow">
-											            <td><input type="text" class="form-control" name="voornaam[]"></td>
-											            <td><input type="text" class="form-control" name="tussenvoegsel[]"></td>
-											            <td><input type="text" class="form-control" name="achternaam[]"></td>
-											            <td><input type="text" class="form-control" name="leerling_id[]"></td>
-											            <td><input type="text" class="form-control" name="emailadres[]"></td>
-											            <td><input type="text" class="form-control" name="klas[]"></td>	
+											            <td><input type="text" class="form-control leerling" name="voornaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="tussenvoegsel[]"></td>
+											            <td><input type="text" class="form-control leerling" name="achternaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="leerling_id[]"></td>
+											            <td><input type="text" class="form-control leerling" name="emailadres[]"></td>
+											            <td><input type="text" class="form-control leerling" name="klas[]"></td>	
 								            		</tr>
 											</tbody>
 										</table>
