@@ -308,6 +308,7 @@ function getKlassen() {
 }
 
 function getLeerlingenKlas($klas) {
+    
     require(ROOT_PATH . "includes/database_connect.php");
     try {   
         $stmt = $db->prepare("
@@ -325,11 +326,12 @@ function getLeerlingenKlas($klas) {
 
     try {   
         $stmt = $db->prepare("
-            SELECT L.leerling_id,G.voornaam,G.tussenvoegsel,G.achternaam,G.emailadres
+            SELECT L.leerling_id,G.voornaam,G.tussenvoegsel,G.achternaam,G.emailadres,G.gebruiker_id
             FROM leerling L
             INNER JOIN gebruiker G
             ON L.gebruiker_id=G.gebruiker_id
             WHERE L.klas_id = ?
+            ORDER BY G.achternaam ASC
             ");
         $stmt->bindParam(1,$klas["klas_id"]);
         $stmt->execute();
@@ -342,3 +344,87 @@ function getLeerlingenKlas($klas) {
     return $results;
 }
 
+function updateStudent($gegevens,$gebruiker_id) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    $db->beginTransaction();
+
+    try {   
+        $stmt = $db->prepare("
+            UPDATE gebruiker
+            SET voornaam = ?,tussenvoegsel = ?, achternaam = ?, emailadres = ?
+            WHERE gebruiker_id = ?
+            ");
+        $stmt->bindParam(1,$gegevens["voornaam"]);
+        $stmt->bindParam(2,$gegevens["tussenvoegsel"]);
+        $stmt->bindParam(3,$gegevens["achternaam"]);
+        $stmt->bindParam(4,$gegevens["emailadres"]);
+        $stmt->bindParam(5,$gebruiker_id);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        $db->rollBack();
+        header('Location: '.$_SERVER['REQUEST_URI']);
+        exit;
+    }
+
+    try {   
+        $stmt = $db->prepare("
+            UPDATE leerling
+            SET leerling_id= ?
+            WHERE gebruiker_id = ?
+            ");
+        $stmt->bindParam(1,$gegevens["leerling_id"]);
+        $stmt->bindParam(2,$gebruiker_id);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        $db->rollBack();
+        header('Location: '.$_SERVER['REQUEST_URI']);
+        exit;
+    }
+
+    $db->commit();
+    $_SESSION["message-success"] = "Leerling gegevens zijn geupdate";
+
+}
+
+function deleteStudent($gebruiker_id) {
+
+    require(ROOT_PATH . "includes/database_connect.php");
+
+    $db->beginTransaction();
+
+    try {   
+        $stmt = $db->prepare("
+            DELETE FROM gebruiker
+            WHERE gebruiker_id = ?
+            ");
+        $stmt->bindParam(1,$gebruiker_id);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        $db->rollBack();
+        header('Location: '.$_SERVER['REQUEST_URI']);
+        exit;
+    }
+
+    try {   
+        $stmt = $db->prepare("
+            DELETE FROM leerling
+            WHERE gebruiker_id = ?
+            ");
+        $stmt->bindParam(1,$gebruiker_id);
+        $stmt->execute();
+    } catch (Exception $e){
+        $_SESSION['message'] = "Er ging wat fout.";
+        $db->rollBack();
+        header('Location: '.$_SERVER['REQUEST_URI']);
+        exit;
+    }
+
+    $db->commit();
+    $_SESSION["message-success"] = "Leerling verwijdert";
+
+}
