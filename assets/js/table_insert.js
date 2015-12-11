@@ -42,3 +42,7 @@ function insRow(div)
 
                 x.appendChild(new_row);
             }
+
+function store(div) {
+
+}
