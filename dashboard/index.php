@@ -29,41 +29,9 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 			<?php include(ROOT_PATH . "includes/templates/sidebar-leerling.php"); ?>
 			<div class="page-wrapper">
 				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="panel panel-default">
-							  <div class="panel-heading">Panel heading without title</div>
-							  <div class="panel-body">
-							    Panel content
-							  </div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default">
-							  <div class="panel-heading">Panel heading without title</div>
-							  <div class="panel-body">
-							    Panel content
-							  </div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default">
-							  <div class="panel-heading">Panel heading without title</div>
-							  <div class="panel-body">
-							    Panel content
-							  </div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default">
-							  <div class="panel-heading">Panel heading without title</div>
-							  <div class="panel-body">
-							    Panel content
-							  </div>
-							</div>
-						</div>						
-					</div>
+					<h1>hoi</h1>
 				</div>
+				<!--HIER KOMT ALLE CONTENT-->
 			</div>
 		</div>
 		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
