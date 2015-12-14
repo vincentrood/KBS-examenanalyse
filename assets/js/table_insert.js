@@ -1,8 +1,20 @@
 function insertLeerlingRow() {
-        var $tr = $("tbody tr:last");
-        var $clone = $tr.clone();
-        $clone.find(':text').val('');
-        $tr.after($clone);
+    var $tr = $("tbody tr:last");
+    var $clone = $tr.clone().fadeIn( 300 );
+    $clone.find(':text').val('');
+    $tr.after($clone);
+}
+
+function deleteleerlingRow() {
+    var $last = $("tbody tr:last");
+    if($last.is(':first-child')){
+        alert('Je kan niet meer rijen verwijderen')
+    }else {
+        $last.fadeOut(300, function() {
+            $(this).remove();
+        });
+    }
+    
 }
 
 //functie voor het toevoegen/weghalen van rijen op de examen toevoeg pagina.
@@ -14,7 +26,7 @@ function deleteRow(div)
     var len = x.rows.length;
     var z = len-1
     if(z <= 1){
-        alert("Je niet meer vragen verwijderen");
+        alert("Je kan niet meer vragen verwijderen");
     } else {
     document.getElementById('vraagtoevoegen' + div).deleteRow(z);
     }
@@ -42,3 +54,4 @@ function insRow(div)
 
                 x.appendChild(new_row);
             }
+
