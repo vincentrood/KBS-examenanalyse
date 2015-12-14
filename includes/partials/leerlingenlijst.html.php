@@ -3,9 +3,11 @@
 foreach($leerlingen as $leerling) {
 	echo "<tr>";
 	foreach($leerling as $key => $value) {
-		echo '<td>'  
-		. $value  
-		. '</td>';
+		if($key != 'gebruiker_id') {
+			echo '<td>'  
+			. $value  
+			. '</td>';
+		}
 	}
 	echo 
 		'<td>

@@ -1,10 +1,12 @@
-	<?php
+<?php
 
-	$data = getUserData($_SESSION['gebruiker_id']);
-	$gebruikersnaam = $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];
+$data = getUserData($_SESSION['gebruiker_id']);
+$gebruikersnaam = $data['voornaam']." ".$data['tussenvoegsel']." ".$data['achternaam'];
 
-	?>
+?>
 
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>Examen Analyse</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />

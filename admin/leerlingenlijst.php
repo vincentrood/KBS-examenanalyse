@@ -6,7 +6,6 @@ checkSession();
 checkIfAdmin();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     //****************  LEERLING TOEVOEGEN ******************//
 
     if(isset($_POST['submit_add_leerling'])) {
@@ -39,20 +38,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	                $gegevens[$values]["tussenvoegsel"] = filter_var($gegevens[$values]["tussenvoegsel"], FILTER_SANITIZE_STRING);//tussenvoegsel mag spatie bevatten
 	                $gegevens[$values]["leerling_id"] = filter_var(trim($gegevens[$values]["leerling_id"]), FILTER_SANITIZE_STRING);
 	                $gegevens[$values]["emailadres"] = filter_var(trim($gegevens[$values]["emailadres"]), FILTER_VALIDATE_EMAIL);
-	                //moet nog wat an gebeuren
-	                $emailcheck = $gegevens[$values]["emailadres"];
-	                $gegevens[$values]["klas"] = filter_var(trim($gegevens[$values]["klas"]), FILTER_SANITIZE_STRING);
-	               
+	                $gegevens[$values]["klas"] = filter_var(trim($gegevens[$values]["klas"]), FILTER_SANITIZE_STRING);	       
 	                $gegevens[$values]["role"] = 1; // is leerling
 	                $gegevens[$values]["account_activated"] = 0; //account is nog niet geactiveerd, dit wordt pas gedaan als gebruiker eerste keer inlogt.
 	                $gegevens[$values]["generated_password"] = generate_random_password();
 	                $gegevens[$values]["wachtwoord"] = password_hash($gegevens[$values]["generated_password"], PASSWORD_BCRYPT);
 	                $gegevens[$values]["email_code"] = md5($gegevens[$values]["voornaam"] + microtime());
   				}
-                //moet nog wat an gebeuren
+
+  				$emailcheck = $gegevens[$values]["emailadres"];
                 if (!$emailcheck) {
-					$_SESSION['message'] = 'Voer een geldig e-mailadres in voor ' . $gegevens[$values]["voornaam"] 
-					. " " . $gegevens[$values]["tussenvoegsel"] . " " . $gegevens[$values]["achternaam"];
+					$_SESSION['message'] = 'Voer een geldig e-mailadres in';
 				}
 				else {
 					//checken of email en student_id uniek zijn
@@ -65,8 +61,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			                addStudent($leerling_gegevens["emailadres"], $leerling_gegevens["leerling_id"], $leerling_gegevens["klas"]);
 
 			                //wachtwoord mailen naar gebruiker
-			                //$mail_content = createTempPasswordMail($leerling_gegevens);
-			                //sendMail($mail_content);
+			                $mail_content = createTempPasswordMail($leerling_gegevens);
+			                sendMail($mail_content);
 			            } else {
 			                //email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
 			              	$_SESSION['message'] = "Email adres " . $leerling_gegevens['emailadres'] . " is al in gebruik";
@@ -76,22 +72,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+    if(isset($_POST["submit_bewerk_leerling"])) {
+		if ($_POST['voornaam'] == "" OR $_POST['achternaam'] == "" OR $_POST['leerling_id'] == "" OR $_POST['emailadres'] == "") {
+			$_SESSION['message'] = "Je moet alle gegevens invullen!";
+		} 
+		else {
+			// overbodige ingevoerde spaties weghalen met functie trim
+			$voornaam = filter_var(trim($_POST['voornaam']), FILTER_SANITIZE_STRING);
+			$achternaam = filter_var(trim($_POST['achternaam']), FILTER_SANITIZE_STRING);
+			$tussenvoegsel = filter_var($_POST['tussenvoegsel'], FILTER_SANITIZE_STRING);//tussenvoegsel mag spatie bevatten
+			$emailadres = filter_var(trim($_POST['emailadres']), FILTER_VALIDATE_EMAIL);
+			$leerling_id = filter_var(trim($_POST['leerling_id']), FILTER_SANITIZE_STRING);
+			$gebruiker_id = intval($_POST['gebruiker_id']);
+			if (!$emailadres) {
+				$_SESSION['message'] = 'Voer een geldig e-mailadres in.';
+			}
+			else {	
+				$gegevens = [ 
+					"voornaam" => $voornaam,
+					"tussenvoegsel" => $tussenvoegsel,
+					"achternaam" => $achternaam,
+					"emailadres" => $emailadres,
+					"leerling_id" => $leerling_id,
+				];
+
+				updateStudent($gegevens,$gebruiker_id);
+
+			}
+		}
+    }
+    if(isset($_POST["submit_verwijder_leerling"])) {
+    	$gebruiker_id = intval($_POST['gebruiker_id']);
+
+    	deleteStudent($gebruiker_id);
+    }
 }
 
 if(isset($_GET['klas'])) {
 	$klas = $_GET['klas'];
 	$leerlingen = getLeerlingenKlas($klas);
-
-
 }
 
-
-
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 	<?php include(ROOT_PATH . "includes/templates/header.php");?>
@@ -118,105 +140,21 @@ if(isset($_GET['klas'])) {
 						    	?>
 							</tbody>
 						</table>
+
 						<!-- Leerling bewerken/verwijderen Modal -->
-						<?php foreach ($leerlingen as $leerling) {
-							foreach ($leerling as $key => $value) {
+						<?php
+							foreach ($leerlingen as $leerling) {
+								foreach ($leerling as $key => $value) {
+									include(ROOT_PATH . "includes/partials/modals/leerling_bewerk_modal.html.php");
+								}
+							}
 						?>
-						<div class="modal fade" id="<?php echo $leerling["leerling_id"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  	<div class="modal-dialog modal-lg" role="document">
-						    	<div class="modal-content">
-						      		<div class="modal-header">
-						        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        		<h4 class="modal-title" id="myModalLabel">Leerling</h4>
-						      		</div>
-						      		<div class="modal-body">
-		       							<form action="" method="POST">
-					        				<div class="form-group leerling">
-									        	<table class="table table-condensed table-bordered">
-												    <thead>
-												      <tr>
-												        <th>Voornaam</th>
-												        <th>Tussenvoegsel</th>
-												        <th>Achternaam</th>
-												        <th>Leerlingnummer</th>
-												        <th>Emailadres</th>
-												      </tr>
-												    </thead>
-												    <tbody>					    	
-												    	<tr class="inputrow">
-												            <td><input type="text" class="form-control leerling" name="voornaam[]" value="<?php echo $leerling["voornaam"] ?>"></td>
-												            <td><input type="text" class="form-control leerling" name="tussenvoegsel[]" value="<?php echo $leerling["tussenvoegsel"] ?>"></td>
-												            <td><input type="text" class="form-control leerling" name="achternaam[]" value="<?php echo $leerling["achternaam"] ?>"></td>
-												            <td><input type="text" class="form-control leerling" name="leerling_id[]" value="<?php echo $leerling["leerling_id"] ?>"></td>
-												            <td><input type="text" class="form-control leerling" name="emailadres[]" value="<?php echo $leerling["emailadres"] ?>"></td>	
-									            		</tr>
-													</tbody>
-												</table>
-											</div>
-					        			</form> 
-		      						</div>
-		      						<div class="modal-footer">
-		      							<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow(this)" value="Rij toevoegen"/>
-										<input type="submit" class="btn btn-default" name="submit_bewerk_leerling" value="Opslaan en verzenden">
-		        						<button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>		  
-		     			 			</div>
-		    					</div>
-		  					</div>
-						</div>
-						<?php } } ?>
-
-
-
-	  					<!-- Button trigger leerling toevoegen modal -->
-						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#leerling-toevoegen">
-						  Leerling Toevoegen
-						</button>
 
 						<!-- Leerling toevoegen Modal -->
-						<div class="modal fade" id="leerling-toevoegen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  	<div class="modal-dialog modal-lg" role="document">
-						    	<div class="modal-content">
-						      		<div class="modal-header">
-						        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        		<h4 class="modal-title" id="myModalLabel">Leerling Toevoegen</h4>
-						      		</div>
-						      		<div class="modal-body">
-						        		<form action="" method="POST">
-								        	<div class="form-group leerling">
-									        	<table class="table table-condensed table-bordered">
-												    <thead>
-												      <tr>
-												        <th>Voornaam</th>
-												        <th>Tussenvoegsel</th>
-												        <th>Achternaam</th>
-												        <th>Leerlingnummer</th>
-												        <th>Emailadres</th>
-												        <th>Klas</th>
-												      </tr>
-												    </thead>
-												    <tbody>					    	
-													    	<tr class="inputrow">
-													            <td><input type="text" class="form-control leerling" name="voornaam[]"></td>
-													            <td><input type="text" class="form-control leerling" name="tussenvoegsel[]"></td>
-													            <td><input type="text" class="form-control leerling" name="achternaam[]"></td>
-													            <td><input type="text" class="form-control leerling" name="leerling_id[]"></td>
-													            <td><input type="text" class="form-control leerling" name="emailadres[]"></td>
-													            <td><input type="text" class="form-control leerling" name="klas[]"></td>	
-										            		</tr>
-													</tbody>
-												</table>
-											</div>
-							        
-						      		</div>
-						      		<div class="modal-footer">
-						      			<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow()" value="Rij toevoegen"/>
-										<input type="submit" class="btn btn-default" name="submit_add_leerling" value="Opslaan en verzenden">
-						        		<button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>						      
-						      		</div>
-						      	</form>
-						    	</div>
-						  	</div>
-						</div>
+						<?php					
+							include(ROOT_PATH . "includes/partials/modals/leerling_toevoegen_modal.html.php");
+						?>
+
 					</div>
 				</div>
 			</div>
