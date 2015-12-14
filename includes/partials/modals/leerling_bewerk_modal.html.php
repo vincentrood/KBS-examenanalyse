@@ -24,7 +24,7 @@
 						            <td><input type="text" class="form-control leerling" name="tussenvoegsel" value="<?php echo $leerling["tussenvoegsel"] ?>"></td>
 						            <td><input type="text" class="form-control leerling" name="achternaam" value="<?php echo $leerling["achternaam"] ?>"></td>
 						            <td><input type="text" class="form-control leerling" name="leerling_id" value="<?php echo $leerling["leerling_id"] ?>"></td>
-						            <td><input type="text" class="form-control leerling" name="emailadres" value="<?php echo $leerling["emailadres"] ?>"></td>					    	
+						            <td><input type="text" class="form-control leerling" name="emailadres" value="<?php echo $leerling["emailadres"] ?>"></td>
 			            		</tr>
 							</tbody>
 						</table>
