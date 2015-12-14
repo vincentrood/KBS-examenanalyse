@@ -13,9 +13,6 @@
 	color: #1bbc9b;
 	margin-bottom: 35px;
 }
-.login-form {
-	margin-bottom: 15px;
-}
 .copyrightelement {
 	margin-top: 50px;
 	color: #fff;
@@ -80,11 +77,21 @@
 	width: 225px;
 }
 .page-wrapper {
-	padding-top: 15px;
+
 }
-.white-background {
-	background-color: #fff;
+
+.form-group {
+	margin: 15px 15px 15px 15px;
 }
-.table-column {
-	max-width: 105px;
+.form-control {
+	margin: 0px;
+}
+
+.panel-default{
+	margin-top: 25px;
+
+}
+
+.panel-heading{
+	font-size: 20px;
 }
