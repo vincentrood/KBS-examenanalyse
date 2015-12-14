@@ -4,7 +4,7 @@
 			<a class="<?php if ($pagename == "dashboard"){echo "active-nav";}?>" href="<?php echo BASE_URL; ?>admin/">Dashboard</a>
 		</li>
 		<li>
-			<a class="<?php if ($pagename == "leerlingen"){echo "active-nav";}?>" href="<?php echo BASE_URL; ?>admin/leerling.php">Leerlingen</a>
+			<a class="<?php if ($pagename == "leerlingen"){echo "active-nav";}?>" href="<?php echo BASE_URL; ?>admin/klassenlijst.php">Leerlingen</a>
 		</li>
 		<li>
 			<a class="<?php if ($pagename == "docenten"){echo "active-nav";}?>" href="<?php echo BASE_URL; ?>admin/docent.php">Docenten</a>
