@@ -98,8 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				<div class="col-sm-6 col-sm-offset-3 loginblock">
 					<h1><center><b>Examen Analyse</b></center></h1>
 					<form method="post" action="">
-						<input type="text" class="form-control" name="user" placeholder="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"/>
-						<input type="password" class="form-control" name="password" placeholder="Wachtwoord"/>
+						<input type="text" class="form-control login-form" name="user" placeholder="<?php if(isset($_POST['user'])) { echo $_POST['user']; }else{echo"Gebruikersnaam";}?>"/>
+						<input type="password" class="form-control login-form" name="password" placeholder="Wachtwoord"/>
 						<p class="help-block"><a href="wachtwoord_vergeten.php">Wachtwoord vergeten?</a></p>
 						<input type="submit" class="btn btn-default" value="Inloggen" />
 					</form>
