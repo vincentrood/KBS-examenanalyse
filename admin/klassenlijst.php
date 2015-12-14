@@ -16,7 +16,6 @@ $klassenlijst = getKlassen();
 <!DOCTYPE html>
 
 <html>
-
 	<body>
 		<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
