@@ -410,3 +410,85 @@ function deleteStudent($gebruiker_id) {
     $_SESSION["message-success"] = "Leerling verwijdert";
 
 }
+    
+    
+function viewTeacher(){
+     require(ROOT_PATH . "includes/database_connect.php");
+
+    try {   
+        $haalgebruikersop = $db->prepare("
+            SELECT docent.gebruiker_id, voornaam,  tussenvoegsel, achternaam, docent_afk, emailadres
+            FROM docent Join gebruiker ON docent.gebruiker_id = gebruiker.gebruiker_id
+            ");
+        $haalgebruikersop->execute();
+        
+    } catch (Exception $e){
+        echo $error_message = "Gebruikers kunnen niet worden gevonden";
+        exit;
+    }
+     $haalgebruikersop = $haalgebruikersop->fetchAll();
+    return $haalgebruikersop;
+    }
+    
+    
+     //Leraar verwijderen
+    
+    function deleteTeacher($sleutel){
+     require(ROOT_PATH . "includes/database_connect.php");
+
+    try {   
+        $verwijderleraar = $db->prepare("
+            DELETE FROM docent
+            Where gebruiker_id = ?
+            ");
+        $verwijderleraar->bindParam(1,$sleutel);
+        $verwijdergebruiker = $db->prepare("
+            DELETE FROM gebruiker
+            WHERE gebruiker_id = ?
+            ");
+        $verwijdergebruiker->bindParam(1,$sleutel);
+        $verwijderleraar->execute();
+        $verwijdergebruiker->execute();
+            $_SESSION["message-success"] = "Docent verwijdert";
+    } catch (Exception $e){
+        echo $error_message = "Gebruikers kunnen niet worden gevonden";
+        exit;
+    }
+    return $verwijderleraar;
+    }
+
+    
+    //Leeraar bewerken 
+    
+    function updateTeacher($gebruiker_id, $voornaam, $tussenvoegsel, $achternaam, $emailadres, $docent_afk){
+     require(ROOT_PATH . "includes/database_connect.php");
+
+    try {   
+        $leeraarBewerkenTabelGebruiker = $db->prepare("
+            Update gebruiker
+            set voornaam = ?,
+            tussenvoegsel = ?,
+            achternaam = ?,
+            emailadres = ?
+            Where gebruiker_id = ?
+            ");
+         $leeraarBewerkenTabelDocent = $db->prepare("
+            Update docent
+            set docent_afk = ?
+            Where docent.gebruiker_id = ?
+            ");
+        $leeraarBewerkenTabelGebruiker->bindParam(1,$voornaam);
+        $leeraarBewerkenTabelGebruiker->bindParam(2,$tussenvoegsel);
+        $leeraarBewerkenTabelGebruiker->bindParam(3,$achternaam);
+        $leeraarBewerkenTabelGebruiker->bindParam(4,$emailadres);
+        $leeraarBewerkenTabelGebruiker->bindParam(5,$gebruiker_id);
+        $leeraarBewerkenTabelDocent->bindParam(1,$docent_afk);
+        $leeraarBewerkenTabelDocent->bindParam(2,$gebruiker_id);
+        $leeraarBewerkenTabelGebruiker->execute();
+        $leeraarBewerkenTabelDocent->execute();
+        $_SESSION["message-success"] = "Docent geupdated";
+    } catch (Exception $e){
+        echo $error_message = "Gebruikers kunnen niet worden gevonden";
+        exit;
+    }
+    }

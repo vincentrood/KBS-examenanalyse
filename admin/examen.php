@@ -231,7 +231,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             foreach ($examengegevens as $examengegeven) {
                                 ?>
                                 <div class="modal fade" id="<?php echo $examengegeven['examen_id']; ?>" role="dialog">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">a
 
                                         <!-- Examen bewerken/weergeven-->
                                         <div class="modal-content">
@@ -241,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </div>
                                             <div class="modal-body">
                                                 <div class="table-responsive">
-                                                    <form action="" method="POST">
+                                                    <form id="form<?php echo $examengegeven['examen_id']; ?>" action="" method="POST">
                                                         <table class="table">
                                                             <tbody id="vraagtoevoegen<?php echo $examengegeven['examen_id']; ?>">
                                                                 Vak:
@@ -308,10 +308,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             ?>
                                                             </tbody>
                                                         </table>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-default" >Opslaan</button></form>
+                                                <button form="form<?php echo $examengegeven['examen_id']; ?>" type="submit" class="btn btn-default" >Opslaan</button>
                                                 <input type="button" class="btn btn-default" id="addmorePOIbutton" value="Voeg rij toe" onclick="insRow(<?php echo $examengegeven['examen_id'] ?>)"/>
                                                 <input type="button" class="btn btn-default" id="delPOIbutton" value="Verwijder rij" onclick="deleteRow(<?php echo $examengegeven['examen_id'] ?>)"/>
                                                 <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#verwijder<?php echo $examengegeven['examen_id']; ?>">Verwijder examen</button>
@@ -321,7 +322,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
                                 <div id="verwijder<?php echo $examengegeven['examen_id']; ?>" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
 
                                         <!-- Examen verwijderen-->
                                         <div class="modal-content">
@@ -347,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <!-- examentoevoegen -->
                     <div class="modal fade" id="examentoevoegen" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
 
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -357,7 +358,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 <div class="modal-body">
                                     <div id="POItablediv">
-                                        <form method="post" action="">
+                                        <form id="docenttoevoegen" method="post" action="">
                                             <table class="table">
                                                 <tbody id="vraagtoevoegen">
                                                     Vak:
@@ -422,13 +423,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 </tr>
                                                 </tbody>
                                             </table>
-
+                                        </form>
                                     </div>
 
 
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" class="btn btn-default" name="submit_examen" value="Opslaan en verzenden"></form>
+                                    <input form="docenttoevoegen" type="submit" class="btn btn-default" name="submit_examen" value="Opslaan en verzenden">
                                     <input  type="button" class="btn btn-default" id="addmorePOIbutton" value="Voeg rij toe" onclick="insRow('')"/>
                                     <input type="button" class="btn btn-default" id="delPOIbutton" value="Verwijder rij" onclick="deleteRow('')"/>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
