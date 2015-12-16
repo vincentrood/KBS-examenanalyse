@@ -1,81 +1,146 @@
 <?php
 // de admin pagina, dit wordt natuurlijk nog uitgebreid.
 require_once("/../includes/init.php");
-require_once('/../includes/admin_functions.php');
-session_start();
-if (!isset($_SESSION['gebruiker_id'])) {
-	$_SESSION['message'] = 'Je bent niet ingelogd.';
-	header('Location: ' . BASE_URL);
-}
-//checken of gebruiker misschien admin in 
-if(checkRole($_SESSION['gebruiker_id']) != 3){
-                    	header('Location: '  . BASE_URL . 'dashboard/');
-                    	exit;
-                    }
-//checken of sessie verlopen is           
-if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
-	// sessie destroyen als sessie verlopen is.
-	session_destroy();
-	session_start();
-	$_SESSION['message'] = 'Sessie is verlopen.';
-	header('Location: ' . BASE_URL);
-} else {
-	//als sessie niet verlopen is sessie verlengen
-	$_SESSION['timeout'] = time();
-}
+
+$pagename = "dashboard";
+checkSession();
+checkIfAdmin();
+
 ?>
 <!DOCTYPE html>
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php");?>
 	<body>
-		<div class="sidemenu">
-			<ul>
-				<a href="/" class="menulink">
-					<li class="menuheading">
-						Dashboard
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Klas toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Examens toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink itembottom">
-					<li class="menuitem">
-						Settings
-					</li>
-				</a>
-				<a href="../includes/logout.php" class="menulink itembottom">
-					<li class="menuitem">
-						Uitloggen
-					</li>
-				</a>
-			</ul>
-		</div>
-		<div class="contentblock">
-			<div class="content">
-				<h1>omdat het menu nog niet goed weergegeven wordt hier nog een keer</h1>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php">Docent Toevoegen</a>
-				<a href="<?php echo BASE_URL; ?>admin/leerling.php">Leerling(en) toevoegen</a>
-		<a href="#">Klas toevoegen</a>
-		<a href="#">Examens toevoegen</a>
+		<?php include(ROOT_PATH . "includes/templates/header.php");?>
+		<div class="wrapper">
+			<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php"); ?>
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">Welkom op het dashboard!</h3>
+								</div>
+								<div class="panel-body">
+									Hier kan eventueel enige uitleg gegeven worden over deze pagina.
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="panel panel-default">
+								<form action="" method="POST">
+									<div class="form-group">
+										<div class="table-responsive">
+											<table class="table table-bordered table-striped table-hover">
+												<tr>
+													<th>Leerling_ID</th>
+													<th>Voornaam</th>
+													<th class="table-column">Tussenvoegsel</th>
+													<th>Achternaam</th>
+													<th>Email-adres</th>
+													<th class="table-column">Klas</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Bernard</td>
+													<td>-</td>
+													<td>Mussche</td>
+													<td>bernardmussche@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Sjaak</td>
+													<td>van</td>
+													<td>Lenten</td>
+													<td>sjaakvanlenten@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Bernard</td>
+													<td>-</td>
+													<td>Mussche</td>
+													<td>bernardmussche@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Sjaak</td>
+													<td>van</td>
+													<td>Lenten</td>
+													<td>sjaakvanlenten@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Bernard</td>
+													<td>-</td>
+													<td>Mussche</td>
+													<td>bernardmussche@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Sjaak</td>
+													<td>van</td>
+													<td>Lenten</td>
+													<td>sjaakvanlenten@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Bernard</td>
+													<td>-</td>
+													<td>Mussche</td>
+													<td>bernardmussche@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Sjaak</td>
+													<td>van</td>
+													<td>Lenten</td>
+													<td>sjaakvanlenten@gmail.com</td>
+													<td>5Hb</td>
+												</tr>
+												<tr class="inputrow">
+													<td><input type="text" class="form-control" name="voornaam[]"></td>
+													<td><input type="text" class="form-control" name="tussenvoegsel[]"></td>
+													<td><input type="text" class="form-control" name="achternaam[]"></td>
+													<td><input type="text" class="form-control" name="leerling_id[]"></td>
+													<td><input type="text" class="form-control" name="emailadres[]"></td>
+													<td><input type="text" class="form-control" name="klas[]"></td>	
+												</tr>
+												<tr class="inputrow">
+													<td><input type="text" class="form-control" name="voornaam[]"></td>
+													<td><input type="text" class="form-control" name="tussenvoegsel[]"></td>
+													<td><input type="text" class="form-control" name="achternaam[]"></td>
+													<td><input type="text" class="form-control" name="leerling_id[]"></td>
+													<td><input type="text" class="form-control" name="emailadres[]"></td>
+													<td><input type="text" class="form-control" name="klas[]"></td>	
+												</tr>
+												<tr class="inputrow">
+													<td><input type="text" class="form-control" name="voornaam[]"></td>
+													<td><input type="text" class="form-control" name="tussenvoegsel[]"></td>
+													<td><input type="text" class="form-control" name="achternaam[]"></td>
+													<td><input type="text" class="form-control" name="leerling_id[]"></td>
+													<td><input type="text" class="form-control" name="emailadres[]"></td>
+													<td><input type="text" class="form-control" name="klas[]"></td>	
+												</tr>
+											</table>
+										</div>
+									<div class="panel-footer">
+									<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow()" value="Rij toevoegen"/>
+									<input type="submit" class="btn btn-default" name="submit_leerling" value="Opslaan en verzenden">
+									</di>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</body>
 </html>

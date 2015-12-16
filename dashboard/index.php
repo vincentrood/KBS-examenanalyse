@@ -1,19 +1,13 @@
 <?php
 require_once('/../config/config.php');
 require_once(ROOT_PATH . "includes/init.php");
-
+$pagename = "dashboard";
 session_start();
 
 if (!isset($_SESSION['gebruiker_id'])) {
 	$_SESSION['message'] = 'Je bent niet ingelogd.';
 	header('Location: ' . BASE_URL);
 }
-
-if(checkRole($_SESSION['gebruiker_id']) == 3){
-                    	header('Location: '  . BASE_URL . 'admin/');
-                    	exit;
-                    }
-                    
 
 if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time()) {
 	// sessie destroyen als sessie verlopen is.
@@ -28,47 +22,51 @@ if (isset($_SESSION['timeout']) && $_SESSION['timeout'] + SESSION_TIME < time())
 ?>
 <!DOCTYPE html>
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php");?>
 	<body>
-		<div class="sidemenu">
-			<ul>
-				<a href="/" class="menulink">
-					<li class="menuheading">
-						Dashboard
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Examen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Resultaten
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Score
-					</li>
-				</a>
-				<a href="#" class="menulink itembottom">
-					<li class="menuitem">
-						Settings
-					</li>
-				</a>
-				<a href="../includes/logout.php" class="menulink itembottom">
-					<li class="menuitem">
-						Uitloggen
-					</li>
-				</a>
-			</ul>	
-		</div>
-		<div class="contentblock">
-			<div class="content">
-				<h1>INFORMATIE</h1>
+		<?php include(ROOT_PATH . "includes/partials/message.html.php"); ?>
+        <?php include(ROOT_PATH . "includes/templates/header.php");?>
+		<div class="wrapper">
+			<?php include(ROOT_PATH . "includes/templates/sidebar-leerling.php"); ?>
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-default">
+							  <div class="panel-heading">Panel heading without title</div>
+							  <div class="panel-body">
+							    Panel content
+							  </div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="panel panel-default">
+							  <div class="panel-heading">Panel heading without title</div>
+							  <div class="panel-body">
+							    Panel content
+							  </div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="panel panel-default">
+							  <div class="panel-heading">Panel heading without title</div>
+							  <div class="panel-body">
+							    Panel content
+							  </div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="panel panel-default">
+							  <div class="panel-heading">Panel heading without title</div>
+							  <div class="panel-body">
+							    Panel content
+							  </div>
+							</div>
+						</div>						
+					</div>
+				</div>
 			</div>
 		</div>
+		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
 	</body>
 </html>
 

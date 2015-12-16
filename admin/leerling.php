@@ -1,10 +1,8 @@
 <?php
-
-// de admin pagina, dit wordt natuurlijk nog uitgebreid.
-require_once('/../config/config.php');
-require_once(ROOT_PATH . "includes/init.php");
-require_once(ROOT_PATH . 'includes/admin_functions.php');
-
+require_once("/../includes/init.php");
+$pagename = "leerlingen";
+checkSession();
+checkIfAdmin();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -66,8 +64,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			                addStudent($leerling_gegevens["emailadres"], $leerling_gegevens["leerling_id"], $leerling_gegevens["klas"]);
 
 			                //wachtwoord mailen naar gebruiker
-			                $mail_content = createTempPasswordMail($leerling_gegevens);
-			                sendMail($mail_content);
+			                //$mail_content = createTempPasswordMail($leerling_gegevens);
+			                //sendMail($mail_content);
 			            } else {
 			                //email adres in gebruik gebruiker wordt op de hoogte gesteld dat dit email adres bezet is.
 			              	$_SESSION['message'] = "Email adres " . $leerling_gegevens['emailadres'] . " is al in gebruik";
@@ -85,81 +83,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 
 <html>
-	<?php include(ROOT_PATH . "includes/templates/header.php") ?>
 	<body>
-		<div class="sidemenu">
-			<ul>
-				<a href="/" class="menulink">
-					<li class="menuheading">
-						Dashboard
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Leerling(en) toevoegen
-					</li>
-				</a>
-				<a href="<?php echo BASE_URL; ?>admin/docent.php" class="menulink">
-					<li class="menuitem">
-						Docent Toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Klas toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink">
-					<li class="menuitem">
-						Examens toevoegen
-					</li>
-				</a>
-				<a href="#" class="menulink itembottom">
-					<li class="menuitem">
-						Settings
-					</li>
-				</a>
-				<a href="../includes/logout.php" class="menulink itembottom">
-					<li class="menuitem">
-						Uitloggen
-					</li>
-				</a>
-			</ul>
-		</div>
-		<div class="contentblock">
-			<div class="content">
-				<h2>Voeg Leerling Toe</h2>
-		        <form action="" method="POST">
-		        	<table class="table table-striped">
-					    <thead>
-					      <tr>
-					        <th>Voornaam</th>
-					        <th>Tussenvoegsel</th>
-					        <th>Achternaam</th>
-					        <th>leerling_id</th>
-					        <th>Emailadres</th>
-					        <th>Klas</th>
-					      </tr>
-					    </thead>
-					    <tbody>					    	
-						    	<tr class="inputrow">
-						            <td><input type="text" name="voornaam[]"></td>
-						            <td><input type="text" name="tussenvoegsel[]"></td>
-						            <td><input type="text" name="achternaam[]"></td>
-						            <td><input type="text" name="leerling_id[]"></td>
-						            <td><input type="text" name="emailadres[]"></td>
-						            <td><input type="text" name="klas[]"></td>	
-			            		</tr>
-						</tbody>
-					</table>
-					<button><input type="submit" name="submit_leerling" value="Opslaan en verzenden"></button>
-					
-		        </form>
-		        <button id="add_leerling">add leerling</button>			        
+		<?php include(ROOT_PATH . "includes/templates/header.php") ?>
+		<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php");?>
+		<div class="wrapper">
+			<?php include(ROOT_PATH . "includes/templates/sidebar-admin.php"); ?>
+			<div class="page-wrapper">
+				<div class="container-fluid">
+					<div class="contentblock">
+						<div class="content">
+							<div class="panel panel-default">
+								<!-- Default panel contents -->
+								<div class="panel-heading">Leerling Toevoegen</div>
+							        <form action="" method="POST">
+							        	<div class="form-group leerling">
+							        	<table class="table table-condensed table-bordered">
+										    <thead>
+										      <tr>
+										        <th>Voornaam</th>
+										        <th>Tussenvoegsel</th>
+										        <th>Achternaam</th>
+										        <th>Leerlingnummer</th>
+										        <th>Emailadres</th>
+										        <th>Klas</th>
+										      </tr>
+										    </thead>
+										    <tbody>					    	
+											    	<tr class="inputrow">
+											            <td><input type="text" class="form-control leerling" name="voornaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="tussenvoegsel[]"></td>
+											            <td><input type="text" class="form-control leerling" name="achternaam[]"></td>
+											            <td><input type="text" class="form-control leerling" name="leerling_id[]"></td>
+											            <td><input type="text" class="form-control leerling" name="emailadres[]"></td>
+											            <td><input type="text" class="form-control leerling" name="klas[]"></td>	
+								            		</tr>
+											</tbody>
+										</table>
+										<input type ="button" class="btn btn-default" id="add_leerling" onclick="insertLeerlingRow()" value="Rij toevoegen"/>
+										<input type="submit" class="btn btn-default" name="submit_leerling" value="Opslaan en verzenden">
+									</div>
+							        </form>
+							    </div>
+					        </div>			        
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/alert_message.js"></script>
-		<script src="<?php echo BASE_URL; ?>assets/js/table_insert.js"></script>
+		<?php include(ROOT_PATH . "includes/templates/footer.php");?>
 	</body>
 </html>
